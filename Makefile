@@ -1,0 +1,5 @@
+NAME			= fdf
+
+
+all:
+
