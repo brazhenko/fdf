@@ -6,7 +6,7 @@
 /*   By: wclayton <wclayton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 21:26:36 by lreznak-          #+#    #+#             */
-/*   Updated: 2019/03/16 01:26:43 by wclayton         ###   ########.fr       */
+/*   Updated: 2019/03/16 01:38:31 by wclayton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@
 # define DIR_ERROR			1
 # define FILE_ERROR			2
 # define ERROR_BIG_FILE		3
+
+# define WIDTH 800
+# define HEIGHT 600
+
 
 typedef struct	s_dot
 {

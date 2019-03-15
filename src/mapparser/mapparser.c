@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mapparser.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lreznak- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: wclayton <wclayton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 01:17:22 by lreznak-          #+#    #+#             */
-/*   Updated: 2019/03/16 00:59:09 by lreznak-         ###   ########.fr       */
+/*   Updated: 2019/03/16 01:39:50 by wclayton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ t_dots			*map_parser(const char *path)
 	if (f.st_size < 0b111111111111111111)
 	{
 		read(fd, m, f.st_size);
-		puts(m);
 	}
 	else
 		file_exit(ERROR_BIG_FILE);
@@ -110,38 +109,38 @@ t_dots			*map_parser(const char *path)
 			if (!ws_split[k][m])
 				break ;
 			map->dots[k][m].z = atoi(ws_split[k][m]);
-			map->dots[k][m].x = k;
-			map->dots[k][m].y = m;
+			map->dots[k][m].x = k * (WIDTH / max_len);
+			map->dots[k][m].y = m * (HEIGHT / i);
 		}
 	}
-//	for (int l = 0; l < i; ++l)
-//	{
-//		for (int j = 0; j < max_len; ++j)
-//		{
-//			printf("%f ", map->dots[l][j].z);
-//		}
-//		printf("\n");
-//	}
-//	printf("\n");
-//
-//	for (int l = 0; l < i; ++l)
-//	{
-//		for (int j = 0; j < max_len; ++j)
-//		{
-//			printf("%f ", map->dots[l][j].x);
-//		}
-//		printf("\n");
-//	}
-//	printf("\n");
-//
-//	for (int l = 0; l < i; ++l)
-//	{
-//		for (int j = 0; j < max_len; ++j)
-//		{
-//			printf("%f ", map->dots[l][j].y);
-//		}
-//		printf("\n");
-//	}
+	for (int l = 0; l < i; ++l)
+	{
+		for (int j = 0; j < max_len; ++j)
+		{
+			printf("%f ", map->dots[l][j].z);
+		}
+		printf("\n");
+	}
+	printf("\n");
+
+	for (int l = 0; l < i; ++l)
+	{
+		for (int j = 0; j < max_len; ++j)
+		{
+			printf("%f ", map->dots[l][j].x);
+		}
+		printf("\n");
+	}
+	printf("\n");
+
+	for (int l = 0; l < i; ++l)
+	{
+		for (int j = 0; j < max_len; ++j)
+		{
+			printf("%f ", map->dots[l][j].y);
+		}
+		printf("\n");
+	}
 	map->rows = i;
 	map->cols = max_len;
 	return (map);

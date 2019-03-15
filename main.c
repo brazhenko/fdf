@@ -1,7 +1,5 @@
 #include "fdf.h"
 
-#define WIDTH 800
-#define HEIGHT 600
 
 
 
@@ -159,7 +157,7 @@ int main(int ac, char *av[])
 	while (++i < map->rows)
 	{
 		j = -1;
-		while (++j)
+		while (++j < map->cols)
 		{
 			if (j != map->cols - 1)			
 				wu(img_data, map->dots[i][j], map->dots[i][j + 1]);
