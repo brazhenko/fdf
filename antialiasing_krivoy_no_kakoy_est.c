@@ -1,9 +1,15 @@
-#include "fdf.h"
+#include "minilibx_macos/mlx.h"
+#include <math.h>
+#include <stdio.h>
 
 #define WIDTH 800
 #define HEIGHT 600
 
-
+typedef struct s_point
+{
+	double x;
+	double y;
+}				t_point;
 
 //void swap(t_point p1)
 
@@ -44,7 +50,7 @@ void swap(double *a, double *b)
 	*b = tmp;
 }
 
-void wu(char *data, t_dot p1, t_dot p2)
+void wu(char *data, t_point p1, t_point p2)
 {
 	double dx;
 	double dy;
@@ -133,7 +139,7 @@ void wu(char *data, t_dot p1, t_dot p2)
 	}
 }
 
-int main(int ac, char *av[])
+int main(void)
 {
     void *mlx_ptr;
     void *win_ptr;
@@ -142,31 +148,18 @@ int main(int ac, char *av[])
     int bpp;
 	int sl;
 	int endian;
-	t_dots *map;
-	int i = -1, j = -1;
+	t_point p1;
+	t_point p2;
 
-	if (ac > 1)
-		map = map_parser(av[1]);
-	else
-		file_exit(FILE_ERROR);
-	
-
+	p1.x = 500;
+	p1.y = 500;
+	p2.x = 250;
+	p2.y = 300;
     mlx_ptr = mlx_init();
 	win_ptr = mlx_new_window(mlx_ptr, WIDTH, HEIGHT, "123123");
 	img_ptr = mlx_new_image(mlx_ptr, WIDTH, HEIGHT);
 	img_data = mlx_get_data_addr(img_ptr, &bpp, &sl, &endian);
-
-	while (++i < map->rows)
-	{
-		j = -1;
-		while (++j)
-		{
-			if (j != map->cols - 1)			
-				wu(img_data, map->dots[i][j], map->dots[i][j + 1]);
-			if (i != map->rows - 1)
-				wu(img_data, map->dots[i][j], map->dots[i + 1][j]);			
-		}
-	}
+	wu(img_data, p1, p2);
 	mlx_put_image_to_window(mlx_ptr, win_ptr, img_ptr, 0, 0);
 //some hooks
 	mlx_loop(mlx_ptr);

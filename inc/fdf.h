@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lreznak- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: wclayton <wclayton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 21:26:36 by lreznak-          #+#    #+#             */
-/*   Updated: 2019/03/15 20:47:12 by lreznak-         ###   ########.fr       */
+/*   Updated: 2019/03/16 01:26:43 by wclayton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <sys/types.h>
+# include "../minilibx_macos/mlx.h"
+# include <math.h>
+# include <stdio.h>
 
 # define DIR_ERROR			1
 # define FILE_ERROR			2
@@ -38,6 +41,7 @@ typedef struct 	s_dots
 }				t_dots;
 
 t_dots			*map_parser(const char *path);
-
+int 			file_exit(int code);
+void wu(char *data, t_dot p1, t_dot p2);
 
 #endif
