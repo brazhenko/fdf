@@ -42,6 +42,43 @@ void swap(double *a, double *b)
 	*b = tmp;
 }
 
+int key_press(int keykode, void *param)
+{
+	printf("kp cc %d\n", keykode);
+	return(0);
+}
+
+int close(void *param)
+{
+    (void)param;
+    exit(0);
+    return (0);
+}
+
+int key_release(int keycode, void *param)
+{
+	printf("kr cc %d\n", keycode);
+	return (0);
+}
+
+int mouse_press(int button, int x, int y, void *param)
+{
+	printf("mp b %d x %d y %d\n", button, x, y);
+	return (0);
+}
+
+int mouse_release(int button, int x, int y, void *param)
+{
+	printf("mr b %d x %d y %d\n", button, x, y);
+	return (0);
+}
+
+int mouse_move(int x, int y, void *param)
+{
+	printf("mm x %d y %d\n", x, y);
+	return (0);
+}
+
 void wu(char *data, t_dot p1, t_dot p2)
 {
 	double dx;
@@ -167,5 +204,11 @@ int main(int ac, char *av[])
 	}
 	mlx_put_image_to_window(mlx_ptr, win_ptr, img_ptr, 0, 0);
 //some hooks
-	mlx_loop(mlx_ptr);
+mlx_hook(win_ptr, 2, 0, key_press, NULL);
+mlx_hook(win_ptr, 3, 0, key_release, NULL);
+mlx_hook(win_ptr, 4, 0, mouse_press, NULL);
+mlx_hook(win_ptr, 5, 0, mouse_release, NULL);
+mlx_hook(win_ptr, 6, 0, mouse_move, NULL);
+mlx_hook(win_ptr, 17, 0, close, NULL);
+mlx_loop(mlx_ptr);
 }
