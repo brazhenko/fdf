@@ -6,7 +6,7 @@
 /*   By: wclayton <wclayton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 21:26:36 by lreznak-          #+#    #+#             */
-/*   Updated: 2019/03/16 05:53:10 by lreznak-         ###   ########.fr       */
+/*   Updated: 2019/03/16 06:02:20 by wclayton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,13 @@ typedef struct 	s_dots
 	int		rows;
 	t_dot	**dots;
 }				t_dots;
+
+typedef struct		s_mouse
+{
+	int				pressed;
+	int				x;
+	int				y;
+}					t_mouse;
 
 t_dots			*map_parser(const char *path);
 int 			file_exit(int code);

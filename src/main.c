@@ -61,9 +61,10 @@ int key_release(int keycode, void *param)
 	return (0);
 }
 
-int mouse_press(int button, int x, int y, void *param)
+int mouse_press(int button, int x, int y, t_mouse *mouse)
 {
-	printf("mp b %d x %d y %d\n", button, x, y);
+	mouse->pressed = 1;
+	printf("mp b %d x %d y %d mmp %d\n", button, x, y, mouse->pressed);
 	return (0);
 }
 
@@ -94,7 +95,7 @@ void wu(char *data, t_dot p1, t_dot p2)
 	int steep;
 	int i;
 	double intery;
-
+	
 	steep = (fabs(p2.y - p1.y) > fabs(p2.x - p1.x)) ? 1 : 0;
 	if (steep)
 	{
@@ -179,7 +180,12 @@ int main(int ac, char *av[])
 	int endian;
 	t_dots *map;
 	int i = -1, j = -1;
+	t_mouse *mouse;
 
+	mouse = (t_mouse*)malloc(sizeof(t_mouse));
+	mouse->pressed = 0;
+	mouse->x = -1;
+	mouse->y = -1;
 	if (ac > 1)
 		map = map_parser(av[1]);
 	else
@@ -207,8 +213,8 @@ int main(int ac, char *av[])
 //some hooks
 mlx_hook(win_ptr, 2, 0, key_press, NULL);
 mlx_hook(win_ptr, 3, 0, key_release, NULL);
-mlx_hook(win_ptr, 4, 0, mouse_press, NULL);
-mlx_hook(win_ptr, 5, 0, mouse_release, NULL);
+mlx_hook(win_ptr, 4, 0, mouse_press, mouse);
+mlx_hook(win_ptr, 5, 0, mouse_release, mouse);
 mlx_hook(win_ptr, 6, 0, mouse_move, NULL);
 mlx_hook(win_ptr, 17, 0, close, NULL);
 mlx_loop(mlx_ptr);
