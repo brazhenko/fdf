@@ -48,7 +48,7 @@ int key_press(int keykode, void *param)
 	return(0);
 }
 
-int close(void *param)
+int close1(void *param)
 {
     (void)param;
     exit(0);
@@ -185,7 +185,8 @@ int main(int ac, char *av[])
 	else
 		file_exit(FILE_ERROR);
 	
-
+	pretty_terminal(1);
+	sleep(3);
     mlx_ptr = mlx_init();
 	win_ptr = mlx_new_window(mlx_ptr, WIDTH, HEIGHT, "123123");
 	img_ptr = mlx_new_image(mlx_ptr, WIDTH, HEIGHT);

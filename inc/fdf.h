@@ -6,7 +6,7 @@
 /*   By: wclayton <wclayton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 21:26:36 by lreznak-          #+#    #+#             */
-/*   Updated: 2019/03/16 01:38:31 by wclayton         ###   ########.fr       */
+/*   Updated: 2019/03/16 05:53:10 by lreznak-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,10 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <sys/types.h>
-# include "../minilibx_macos/mlx.h"
 # include <math.h>
 # include <stdio.h>
+# include "../minilibx_macos/mlx.h"
+# include "ft_select.h"
 
 # define DIR_ERROR			1
 # define FILE_ERROR			2
@@ -29,6 +30,7 @@
 # define WIDTH 800
 # define HEIGHT 600
 
+# define MINIMUM_RADIAN		0.001
 
 typedef struct	s_dot
 {
@@ -47,5 +49,11 @@ typedef struct 	s_dots
 t_dots			*map_parser(const char *path);
 int 			file_exit(int code);
 void wu(char *data, t_dot p1, t_dot p2);
+int			pretty_terminal(int status);
+void			map_twister_x(t_dots *map);
+void			map_twister_y(t_dots *map);
+void			map_twister_z(t_dots *map);
+
+
 
 #endif
