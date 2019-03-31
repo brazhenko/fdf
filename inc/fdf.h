@@ -6,7 +6,7 @@
 /*   By: wclayton <wclayton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 21:26:36 by lreznak-          #+#    #+#             */
-/*   Updated: 2019/03/18 20:09:35 by wclayton         ###   ########.fr       */
+/*   Updated: 2019/03/21 02:12:15 by wclayton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,10 @@ int				pretty_terminal(int status);
 void			map_twister_x(t_dots *map, int mode);
 void			map_twister_y(t_dots *map, int mode);
 void			map_twister_z(t_dots *map, int mode);
-
+void			move_basis(t_dots *map, t_dot anchor);
+void			remove_basis(t_dots *map, t_dot anchor);
+t_dot			anchor(t_dots *map);
+void			map_scale(t_dots *map, int mode);
 
 
 #endif

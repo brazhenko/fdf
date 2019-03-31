@@ -5,6 +5,42 @@
 
 //void swap(t_point p1)
 
+void	move_basis(t_dots *map, t_dot anchor)
+{
+	int i;
+	int j;
+
+	i = -1;
+	while (++i < map->cols)
+	{
+		j = -1;
+		while (++j < map->rows)
+		{
+			map->dots[i][j].x -= anchor.x;
+			map->dots[i][j].y -= anchor.y;
+			map->dots[i][j].z -= anchor.z;
+		}
+	}
+}
+
+void	remove_basis(t_dots *map, t_dot anchor)
+{
+	int i;
+	int j;
+
+	i = -1;
+	while (++i < map->cols)
+	{
+		j = -1;
+		while (++j < map->rows)
+		{
+			map->dots[i][j].x += anchor.x;
+			map->dots[i][j].y += anchor.y;
+			map->dots[i][j].z += anchor.z;
+		}
+	}
+}
+
 void plot(double x, double y, char *data, double bs)
 {
 	if (x < WIDTH && y < HEIGHT && y >=0.0 && x >= 0.0)
@@ -198,14 +234,14 @@ int key_press(int keycode, t_fdf *fdf)
 		map_twister_z(fdf->map, 0);
 		drawmap(fdf);
 	}
-	//printf("kp cc %d\n", keycode);
+	printf("kp cc %d\n", keycode);
 	return(0);
 }
 
 int key_release(int keycode, t_fdf *fdf)
 {
 	fdf->keyboard->pressed[keycode] = 0;
-	//printf("kr cc %d\n", keycode);
+	printf("kr cc %d\n", keycode);
 	return (0);
 }
 
@@ -216,12 +252,29 @@ int close1(t_fdf *fdf)
     return (0);
 }
 
+double dist(t_dot p1, t_dot p2)
+{
+	return(sqrt(pow(2, p1.x - p2.x) + pow(2, p1.y - p2.y) + pow(2, p1.z - p2.z)));
+}
+
 int mouse_press(int button, int x, int y, t_fdf *fdf)
 {
 	fdf->mouse->pressed = button;
 	fdf->mouse->x = x;
 	fdf->mouse->y = y;
-	//printf("mp b %d x %d y %d mmp %d\n", button, x, y, fdf->mouse->pressed);
+
+	if (fdf->mouse->pressed == 5)
+	{
+		map_scale(fdf->map, 1);
+		drawmap(fdf);
+	}
+	else if (fdf->mouse->pressed == 4)
+	{
+		map_scale(fdf->map, 0);
+		drawmap(fdf);
+	}
+
+	printf("mp b %d x %d y %d mmp %d\n", button, x, y, fdf->mouse->pressed);
 	return (0);
 }
 
@@ -254,6 +307,16 @@ int mouse_move(int x, int y, t_fdf *fdf)
 	drawmap(fdf);
 	//printf("mm x %d y %d\n", x, y);
 	return (0);
+}
+
+t_dot	anchor(t_dots *map)
+{
+	t_dot anc;
+
+	anc.x = (map->dots[map->rows - 1][0].x + map->dots[0][map->cols - 1].x) / 2;
+	anc.y = (map->dots[map->rows - 1][0].y + map->dots[0][map->cols - 1].y) / 2;
+	anc.z = map->dots[map->rows / 2][map->cols / 2].z / 2;
+	return (anc);
 }
 
 int main(int ac, char *av[])

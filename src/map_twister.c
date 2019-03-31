@@ -6,7 +6,7 @@
 /*   By: wclayton <wclayton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 05:46:33 by lreznak-          #+#    #+#             */
-/*   Updated: 2019/03/17 17:08:16 by wclayton         ###   ########.fr       */
+/*   Updated: 2019/03/21 02:14:08 by wclayton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@ void			map_twister_x(t_dots *map, int mode)
 {
 	int 		i = 0, j = 0;
 	double 		tmp;
+	t_dot		anc;
+
+	anc = anchor(map);
+	move_basis(map, anc);
 	while (i < map->rows)
 	{
 		j = 0;
@@ -29,12 +33,39 @@ void			map_twister_x(t_dots *map, int mode)
 		}
 		i++;
 	}
+	remove_basis(map, anc);
+}
+
+void			map_scale(t_dots *map, int mode)
+{
+	int			i, j;
+	t_dot		anc;
+
+	anc = anchor(map);
+	move_basis(map, anc);
+	i = -1;
+	while (++i < map->rows)
+	{
+		j = -1;
+		while (++j < map->cols)
+		{
+			/* map->dots[i][j].x = x; */
+			map->dots[i][j].x *= (mode == 1) ? 1.1 : 0.9;
+			map->dots[i][j].y *= (mode == 1) ? 1.1 : 0.9;
+			map->dots[i][j].z *= (mode == 1) ? 1.1 : 0.9;
+		}
+	}
+	remove_basis(map, anc);
 }
 
 void			map_twister_y(t_dots *map, int mode)
 {
 	int 		i = 0, j = 0;
 	double 		tmp;
+	t_dot		anc;
+
+	anc = anchor(map);
+	move_basis(map, anc);
 	while (i < map->rows)
 	{
 		j = 0;
@@ -48,12 +79,17 @@ void			map_twister_y(t_dots *map, int mode)
 		}
 		i++;
 	}
+	remove_basis(map, anc);
 }
 
 void			map_twister_z(t_dots *map, int mode)
 {
 	int 		i = 0, j = 0;
 	double 		tmp;
+	t_dot		anc;
+
+	anc = anchor(map);
+	move_basis(map, anc);
 	while (i < map->rows)
 	{
 		j = 0;
@@ -67,4 +103,5 @@ void			map_twister_z(t_dots *map, int mode)
 		}
 		i++;
 	}
+	remove_basis(map, anc);
 }
