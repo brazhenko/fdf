@@ -6,7 +6,7 @@
 /*   By: wclayton <wclayton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 01:17:22 by lreznak-          #+#    #+#             */
-/*   Updated: 2019/03/31 21:28:39 by lreznak-         ###   ########.fr       */
+/*   Updated: 2019/03/31 18:16:08 by lreznak-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ t_dots			*map_parser(const char *path)
 	{
 		file_exit(FILE_ERROR);
 	}
-	if (f.st_size < 0b1111111111111111111)
+	if (f.st_size < 0b111111111111111111)
 	{
 		read(fd, m, f.st_size);
 	}
@@ -100,7 +100,6 @@ t_dots			*map_parser(const char *path)
 		map->dots[j] = (t_dot *)malloc(sizeof(t_dot) * max_len);
 	}
 
-	char	**onedot_with_color;
 	for (register int k = 0 ; k < 100000; ++k)
 	{
 		if (!ws_split[k])
@@ -109,11 +108,9 @@ t_dots			*map_parser(const char *path)
 		{
 			if (!ws_split[k][m])
 				break ;
-			onedot_with_color = ft_strsplit(ws_split[k][m], ',');
-			map->dots[k][m].z = 15 * atoi(onedot_with_color[0]/*ws_split[k][m]*/);
-			map->dots[k][m].x = m * (WIDTH / max_len);
-			map->dots[k][m].y = k * (HEIGHT / i);
-			map->dots[k][m].color = ft_atoi_base(onedot_with_color[1] + 2, 16);
+			map->dots[k][m].z = 15 * atoi(ws_split[k][m]);
+			map->dots[k][m].x = k * (WIDTH / max_len);
+			map->dots[k][m].y = m * (HEIGHT / i);
 		}
 	}
 	for (int l = 0; l < i; ++l)
@@ -144,7 +141,7 @@ t_dots			*map_parser(const char *path)
 		}
 		printf("\n");
 	}
-	printf("%d\n", map->rows = i);
-	printf("%d\n", map->cols = max_len);
+	map->rows = i;
+	map->cols = max_len;
 	return (map);
 }
