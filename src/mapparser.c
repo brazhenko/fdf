@@ -6,7 +6,11 @@
 /*   By: wclayton <wclayton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 01:17:22 by lreznak-          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2019/03/31 17:58:56 by wclayton         ###   ########.fr       */
+=======
+/*   Updated: 2019/03/31 18:16:08 by lreznak-         ###   ########.fr       */
+>>>>>>> 7e20c423ee6e351e0dc697bb05b8e06d83719576
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +62,9 @@ t_dots			*map_parser(const char *path)
 	struct stat		f;
 	int				fd, i = 0;
 	unsigned long long		sz;
-	char 					m[32768];
+	char 					m[3276222];
 	char				**bsn_split;
-	char 				***ws_split = malloc(sizeof(char **) * 100);
+	char 				***ws_split = malloc(sizeof(char **) * 100000);
 	int 				max_len = 0;
 	int 				strcount = 0;
 
@@ -90,7 +94,7 @@ t_dots			*map_parser(const char *path)
 		bsn_split++;
 		i++;
 	}
-	strcount = i;//ptrptrlen(bsn_split);
+	strcount = i; //ptrptrlen(bsn_split);
 	ws_split[i] = NULL;
 	map = (t_dots *)malloc(sizeof(t_dots));
 	map->dots = (t_dot **)malloc(sizeof(t_dot *) * (i + 1));
@@ -100,7 +104,7 @@ t_dots			*map_parser(const char *path)
 		map->dots[j] = (t_dot *)malloc(sizeof(t_dot) * max_len);
 	}
 
-	for (register int k = 0 ; k < 1000; ++k)
+	for (register int k = 0 ; k < 100000; ++k)
 	{
 		if (!ws_split[k])
 			break ;
