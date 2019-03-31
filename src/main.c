@@ -11,10 +11,10 @@ void	move_basis(t_dots *map, t_dot anchor)
 	int j;
 
 	i = -1;
-	while (++i < map->cols)
+	while (++i < map->rows)
 	{
 		j = -1;
-		while (++j < map->rows)
+		while (++j < map->cols)
 		{
 			map->dots[i][j].x -= anchor.x;
 			map->dots[i][j].y -= anchor.y;
@@ -29,10 +29,10 @@ void	remove_basis(t_dots *map, t_dot anchor)
 	int j;
 
 	i = -1;
-	while (++i < map->cols)
+	while (++i < map->rows)
 	{
 		j = -1;
-		while (++j < map->rows)
+		while (++j < map->cols)
 		{
 			map->dots[i][j].x += anchor.x;
 			map->dots[i][j].y += anchor.y;
@@ -43,6 +43,7 @@ void	remove_basis(t_dots *map, t_dot anchor)
 
 void plot(double x, double y, char *data, double bs)
 {
+
 	if (x < WIDTH && y < HEIGHT && y >=0.0 && x >= 0.0)
 	{
 		data[4 * (int)x + 4 * WIDTH * (int)y] = ceil(255 * bs);
@@ -234,14 +235,12 @@ int key_press(int keycode, t_fdf *fdf)
 		map_twister_z(fdf->map, 0);
 		drawmap(fdf);
 	}
-	printf("kp cc %d\n", keycode);
 	return(0);
 }
 
 int key_release(int keycode, t_fdf *fdf)
 {
 	fdf->keyboard->pressed[keycode] = 0;
-	printf("kr cc %d\n", keycode);
 	return (0);
 }
 
@@ -273,8 +272,6 @@ int mouse_press(int button, int x, int y, t_fdf *fdf)
 		map_scale(fdf->map, 0);
 		drawmap(fdf);
 	}
-
-	printf("mp b %d x %d y %d mmp %d\n", button, x, y, fdf->mouse->pressed);
 	return (0);
 }
 

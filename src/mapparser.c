@@ -6,7 +6,7 @@
 /*   By: wclayton <wclayton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 01:17:22 by lreznak-          #+#    #+#             */
-/*   Updated: 2019/03/31 19:00:15 by wclayton         ###   ########.fr       */
+/*   Updated: 2019/03/31 20:46:19 by wclayton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,8 @@ t_dots			*map_parser(const char *path)
 			if (!ws_split[k][m])
 				break ;
 			map->dots[k][m].z = 15 * atoi(ws_split[k][m]);
-			map->dots[k][m].x = k * (WIDTH / max_len);
-			map->dots[k][m].y = m * (HEIGHT / i);
+			map->dots[k][m].x = m * (WIDTH / max_len);
+			map->dots[k][m].y = k * (HEIGHT / i);
 		}
 	}
 	for (int l = 0; l < i; ++l)
@@ -141,7 +141,7 @@ t_dots			*map_parser(const char *path)
 		}
 		printf("\n");
 	}
-	map->rows = i;
-	map->cols = max_len;
+	printf("%d\n", map->rows = i);
+	printf("%d\n", map->cols = max_len);
 	return (map);
 }

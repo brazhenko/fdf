@@ -6,7 +6,7 @@
 /*   By: wclayton <wclayton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 05:46:33 by lreznak-          #+#    #+#             */
-/*   Updated: 2019/03/21 02:14:08 by wclayton         ###   ########.fr       */
+/*   Updated: 2019/03/31 20:50:44 by wclayton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void			map_twister_y(t_dots *map, int mode)
 		while (j < map->cols)
 		{
 			tmp = map->dots[i][j].x;
+
 			map->dots[i][j].x = map->dots[i][j].x * cos((mode == 1) ? MINIMUM_RADIAN : -MINIMUM_RADIAN) + map->dots[i][j].z * sin((mode == 1) ? MINIMUM_RADIAN : -MINIMUM_RADIAN);
 			/* map->dots[i][j].x = x; */
 			map->dots[i][j].z = -tmp * sin((mode == 1) ? MINIMUM_RADIAN : -MINIMUM_RADIAN) + map->dots[i][j].z * cos((mode == 1) ? MINIMUM_RADIAN : -MINIMUM_RADIAN);
@@ -79,6 +80,7 @@ void			map_twister_y(t_dots *map, int mode)
 		}
 		i++;
 	}
+
 	remove_basis(map, anc);
 }
 
