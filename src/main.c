@@ -41,14 +41,14 @@ void	remove_basis(t_dots *map, t_dot anchor)
 	}
 }
 
-void plot(double x, double y, char *data, double bs, int r, int g, int b)
+void plot(double x, double y, char *data, double bs, double r, double g, double b)
 {
 
 	if (x < WIDTH && y < HEIGHT && y >=0.0 && x >= 0.0)
 	{
-		data[4 * (int)x + 4 * WIDTH * (int)y] = ceil(r * bs);
-		data[4 * (int)x + 4 * WIDTH * (int)y + 1] = ceil(g * bs);
-		data[4 * (int)x + 4 * WIDTH * (int)y + 2] = ceil(b * bs);
+		data[4 * (int)x + 4 * WIDTH * (int)y] = ceil((int)r * bs);
+		data[4 * (int)x + 4 * WIDTH * (int)y + 1] = ceil((int)g * bs);
+		data[4 * (int)x + 4 * WIDTH * (int)y + 2] = ceil((int)b * bs);
 	}
 }
 
@@ -159,20 +159,24 @@ void wu(char *data, t_dot p1, t_dot p2)
 	i = (int)(xpxl1);
 	if (steep)
 	{
+		printf("HUI!!\n");
 		while (i <= xpxl2)
 		{
-			plot(ipart(intery), i, data, rfpart(intery), (xpxl2 - i) * p1.r + i * p2.r, (xpxl2 - i) * p1.g + i * p2.g, (xpxl2 - i) * p1.b + i * p2.b);
-			plot(ipart(intery) + 1, i, data, fpart(intery), (xpxl2 - i) * p1.r + i * p2.r, (xpxl2 - i) * p1.g + i * p2.g, (xpxl2 - i) * p1.b + i * p2.b);
+			printf("%d %lf %lf\n", i, xpxl1, xpxl2);
+			plot(ipart(intery), i, data, rfpart(intery), p1.r * fabs(xpxl2 - i) / fabs(xpxl2 - xpxl1), p1.g, p1.b);
+			plot(ipart(intery) + 1, i, data, fpart(intery), p1.r * fabs(xpxl2 - i) / fabs(xpxl2 - xpxl1), p1.g, p1.b);
 			intery += grad;
 			i++;
 		}
 	}
 	else
 	{
+		printf("HUI!\n");
 		while (i <= xpxl2)
 		{
-			plot(i, ipart(intery), data, rfpart(intery), (xpxl2 - i) * p1.r + i * p2.r, (xpxl2 - i) * p1.g + i * p2.g, (xpxl2 - i) * p1.b + i * p2.b);
-			plot(i, ipart(intery) + 1, data, fpart(intery), (xpxl2 - i) * p1.r + i * p2.r, (xpxl2 - i) * p1.g + i * p2.g, (xpxl2 - i) * p1.b + i * p2.b);
+			printf("%d %lf %lf\n", i, xpxl1, xpxl2);
+			plot(i, ipart(intery), data, rfpart(intery), fabs(xpxl2 - i) / fabs(xpxl2 - xpxl1) * p1.r, p1.g, p1.b);
+			plot(i, ipart(intery) + 1, data, fpart(intery), fabs(xpxl2 - i) / fabs(xpxl2 - xpxl1) * p1 .r, p1.g, p1.b);
 			intery += grad;
 			i++;
 		}
