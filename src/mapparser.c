@@ -6,7 +6,7 @@
 /*   By: wclayton <wclayton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 01:17:22 by lreznak-          #+#    #+#             */
-/*   Updated: 2019/03/31 21:28:39 by lreznak-         ###   ########.fr       */
+/*   Updated: 2019/04/01 20:46:13 by wclayton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,10 @@ t_dots			*map_parser(const char *path)
 			map->dots[k][m].z = 15 * atoi(onedot_with_color[0]/*ws_split[k][m]*/);
 			map->dots[k][m].x = m * (WIDTH / max_len);
 			map->dots[k][m].y = k * (HEIGHT / i);
-			map->dots[k][m].color = ft_atoi_base(onedot_with_color[1] + 2, 16);
+			map->dots[k][m].color = onedot_with_color[1] ? ft_atoi_base(onedot_with_color[1] + 2, 16) : 0xFFFFFF;
+			map->dots[k][m].r = 0b11111111 & (map->dots[k][m].color >> 16);
+			map->dots[k][m].g = 0b11111111 & (map->dots[k][m].color >> 8);
+			map->dots[k][m].b = 0b11111111 & map->dots[k][m].color;
 		}
 	}
 	for (int l = 0; l < i; ++l)
