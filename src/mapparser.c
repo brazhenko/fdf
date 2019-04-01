@@ -6,7 +6,7 @@
 /*   By: wclayton <wclayton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 01:17:22 by lreznak-          #+#    #+#             */
-/*   Updated: 2019/04/01 20:46:13 by wclayton         ###   ########.fr       */
+/*   Updated: 2019/04/01 21:18:20 by wclayton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ t_dots			*map_parser(const char *path)
 	{
 		file_exit(FILE_ERROR);
 	}
-	if (f.st_size < 0b1111111111111111111)
+	if (1 /* f.st_size < 0b111111111111111111111 */)
 	{
 		read(fd, m, f.st_size);
 	}

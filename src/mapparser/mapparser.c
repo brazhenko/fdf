@@ -6,7 +6,7 @@
 /*   By: wclayton <wclayton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 01:17:22 by lreznak-          #+#    #+#             */
-/*   Updated: 2019/03/31 18:16:08 by lreznak-         ###   ########.fr       */
+/*   Updated: 2019/04/01 21:14:28 by wclayton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,72 +76,52 @@ t_dots			*map_parser(const char *path)
 	{
 		file_exit(FILE_ERROR);
 	}
-	if (f.st_size < 0b111111111111111111)
+	if (1 /* f.st_size < 0b111111111111111111111 */)
 	{
 		read(fd, m, f.st_size);
 	}
 	else
 		file_exit(ERROR_BIG_FILE);
+	puts(m);
 	bsn_split = ft_strsplit(m, '\n');
-	while (*bsn_split)
-	{
-		ws_split[i] = ft_strsplit(*bsn_split, ' ');
-		max_len = ptrlen(ws_split[i]) > max_len ? ptrlen(ws_split[i]) : max_len;
-		bsn_split++;
-		i++;
-	}
-	strcount = i; //ptrptrlen(bsn_split);
-	ws_split[i] = NULL;
-	map = (t_dots *)malloc(sizeof(t_dots));
-	map->dots = (t_dot **)malloc(sizeof(t_dot *) * (i + 1));
-	map->dots[i] = NULL;
-	for (register int j = 0 ; j < i ; ++j)
-	{
-		map->dots[j] = (t_dot *)malloc(sizeof(t_dot) * max_len);
-	}
+	// while (*bsn_split)
+	// {
+	// 	ws_split[i] = ft_strsplit(*bsn_split, ' ');
+	// 	max_len = ptrlen(ws_split[i]) > max_len ? ptrlen(ws_split[i]) : max_len;
+	// 	bsn_split++;
+	// 	i++;
+	// }
+	// strcount = i; //ptrptrlen(bsn_split);
+	// ws_split[i] = NULL;
+	// map = (t_dots *)malloc(sizeof(t_dots));
+	// map->dots = (t_dot **)malloc(sizeof(t_dot *) * (i + 1));
+	// map->dots[i] = NULL;
+	// for (register int j = 0 ; j < i ; ++j)
+	// {
+	// 	map->dots[j] = (t_dot *)malloc(sizeof(t_dot) * max_len);
+	// }
 
-	for (register int k = 0 ; k < 100000; ++k)
-	{
-		if (!ws_split[k])
-			break ;
-		for (int m = 0; m < max_len; ++m)
-		{
-			if (!ws_split[k][m])
-				break ;
-			map->dots[k][m].z = 15 * atoi(ws_split[k][m]);
-			map->dots[k][m].x = k * (WIDTH / max_len);
-			map->dots[k][m].y = m * (HEIGHT / i);
-		}
-	}
-	for (int l = 0; l < i; ++l)
-	{
-		for (int j = 0; j < max_len; ++j)
-		{
-			printf("%f ", map->dots[l][j].z);
-		}
-		printf("\n");
-	}
-	printf("\n");
+	char	**onedot_with_color;
+	// for (register int k = 0 ; k < 100000; ++k)
+	// {
+	// 	if (!ws_split[k])
+	// 		break ;
+	// 	for (int m = 0; m < max_len; ++m)
+	// 	{
+	// 		if (!ws_split[k][m])
+	// 			break ;
+	// 		onedot_with_color = ft_strsplit(ws_split[k][m], ',');
+	// 		map->dots[k][m].z = 15 * atoi(onedot_with_color[0]/*ws_split[k][m]*/);
+	// 		map->dots[k][m].x = m * (WIDTH / max_len);
+	// 		map->dots[k][m].y = k * (HEIGHT / i);
+	// 		map->dots[k][m].color = 0;// onedot_with_color[1] ? ft_atoi_base(onedot_with_color[1] + 2, 16) : 0xFFFFFF;
+	// 		map->dots[k][m].r = 0b11111111 & (map->dots[k][m].color >> 16);
+	// 		map->dots[k][m].g = 0b11111111 & (map->dots[k][m].color >> 8);
+	// 		map->dots[k][m].b = 0b11111111 & map->dots[k][m].color;
+	// 	}
+	// }
 
-	for (int l = 0; l < i; ++l)
-	{
-		for (int j = 0; j < max_len; ++j)
-		{
-			printf("%f ", map->dots[l][j].x);
-		}
-		printf("\n");
-	}
-	printf("\n");
-
-	for (int l = 0; l < i; ++l)
-	{
-		for (int j = 0; j < max_len; ++j)
-		{
-			printf("%f ", map->dots[l][j].y);
-		}
-		printf("\n");
-	}
-	map->rows = i;
-	map->cols = max_len;
+	// printf("%d\n", map->rows = i);
+	// printf("%d\n", map->cols = max_len);
 	return (map);
 }
