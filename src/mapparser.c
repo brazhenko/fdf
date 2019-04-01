@@ -6,7 +6,7 @@
 /*   By: wclayton <wclayton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 01:17:22 by lreznak-          #+#    #+#             */
-/*   Updated: 2019/04/01 21:55:40 by lreznak-         ###   ########.fr       */
+/*   Updated: 2019/04/01 22:14:40 by wclayton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ t_dots			*map_parser(const char *path)
 			map->dots[k][m].r = 0b11111111 & (map->dots[k][m].color >> 16);
 			map->dots[k][m].g = 0b11111111 & (map->dots[k][m].color >> 8);
 			map->dots[k][m].b = 0b11111111 & map->dots[k][m].color;
+			printf("%d %d %d\n", map->dots[k][m].r, map->dots[k][m].g, map->dots[k][m].b);
 		}
 	}
 	for (int l = 0; l < i; ++l)
@@ -129,7 +130,7 @@ t_dots			*map_parser(const char *path)
 		{
 			map->dots[l][j].r = map->dots[l][j].color ? map->dots[l][j].r : ((float)(map->dots[l][j].z - min_height) * (float)(max_height - min_height));
 			// map->dots[l][j].g = map->dots[l][j].color ? map->dots[l][j].r : ((float)(map->dots[l][j].z - min_height) * (float)(max_height - min_height));
-			map->dots[k][m].z *= 10;
+			map->dots[l][j].z *= 10;
 		}
 	}
 	for (int l = 0; l < i; ++l)
@@ -162,5 +163,14 @@ t_dots			*map_parser(const char *path)
 	}
 	printf("%d\n", map->rows = i);
 	printf("%d\n", map->cols = max_len);
+		for (int l = 0; l < i; ++l)
+	{
+		for (int j = 0; j < max_len; ++j)
+		{
+			printf("%f  ", map->dots[l][j].r);
+		}
+		printf("\n");
+	}
 	return (map);
+
 }
