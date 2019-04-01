@@ -6,7 +6,7 @@
 /*   By: wclayton <wclayton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 01:17:22 by lreznak-          #+#    #+#             */
-/*   Updated: 2019/04/01 22:14:40 by wclayton         ###   ########.fr       */
+/*   Updated: 2019/04/01 22:36:00 by lreznak-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,18 +117,17 @@ t_dots			*map_parser(const char *path)
 			// map->dots[k][m].z *= 10;
 			map->dots[k][m].x = m * (WIDTH / max_len);
 			map->dots[k][m].y = k * (HEIGHT / i);
-			map->dots[k][m].color = onedot_with_color[1] ? ft_atoi_base(onedot_with_color[1] + 2, 16) : 0xFFFFFF;
-			map->dots[k][m].r = 0b11111111 & (map->dots[k][m].color >> 16);
+			 map->dots[k][m].color = onedot_with_color[1] ? ft_atoi_base(onedot_with_color[1] + 2, 16) : 0;
+			 map->dots[k][m].r = 0b11111111 & (map->dots[k][m].color >> 16);
 			map->dots[k][m].g = 0b11111111 & (map->dots[k][m].color >> 8);
 			map->dots[k][m].b = 0b11111111 & map->dots[k][m].color;
-			printf("%d %d %d\n", map->dots[k][m].r, map->dots[k][m].g, map->dots[k][m].b);
 		}
 	}
 	for (int l = 0; l < i; ++l)
 	{
 		for (int j = 0; j < max_len; ++j)
 		{
-			map->dots[l][j].r = map->dots[l][j].color ? map->dots[l][j].r : ((float)(map->dots[l][j].z - min_height) * (float)(max_height - min_height));
+			 map->dots[l][j].r = map->dots[l][j].color ? map->dots[l][j].r : ((float)(map->dots[l][j].z - min_height) / (float)(max_height - min_height) * 255);
 			// map->dots[l][j].g = map->dots[l][j].color ? map->dots[l][j].r : ((float)(map->dots[l][j].z - min_height) * (float)(max_height - min_height));
 			map->dots[l][j].z *= 10;
 		}
@@ -163,14 +162,14 @@ t_dots			*map_parser(const char *path)
 	}
 	printf("%d\n", map->rows = i);
 	printf("%d\n", map->cols = max_len);
-		for (int l = 0; l < i; ++l)
+	printf("%d----%d\n", max_height, min_height);
+	for (int l = 0; l < i; ++l)
 	{
 		for (int j = 0; j < max_len; ++j)
 		{
-			printf("%f  ", map->dots[l][j].r);
+			printf("%d ", map->dots[l][j].r);
 		}
 		printf("\n");
 	}
 	return (map);
-
 }
