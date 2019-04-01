@@ -147,13 +147,13 @@ void wu(char *data, t_dot p1, t_dot p2)
 	ypxl2 = ipart(yend);
 	if (steep)
 	{
-		plot(ypxl2, xpxl2, data, rfpart(yend) * xgap, p1.r, p1.g, p1.b);
-		plot(ypxl2 + 1, xpxl2, data, fpart(yend) * xgap, p1.r, p1.g, p1.b);
+		plot(ypxl2, xpxl2, data, rfpart(yend) * xgap, p2.r, p2.g, p2.b);
+		plot(ypxl2 + 1, xpxl2, data, fpart(yend) * xgap, p2.r, p2.g, p2.b);
 	}
 	else
 	{
-		plot(xpxl2, ypxl2, data, rfpart(yend) * xgap, p1.r, p1.g, p1.b);
-		plot(xpxl2, ypxl2 + 1, data, fpart(yend) * xgap, p1.r, p1.g, p1.b);
+		plot(xpxl2, ypxl2, data, rfpart(yend) * xgap, p2.r, p2.g, p2.b);
+		plot(xpxl2, ypxl2 + 1, data, fpart(yend) * xgap, p2.r, p2.g, p2.b);
 	}
 
 	i = (int)(xpxl1);
@@ -161,8 +161,8 @@ void wu(char *data, t_dot p1, t_dot p2)
 	{
 		while (i <= xpxl2)
 		{
-			plot(ipart(intery), i, data, rfpart(intery), p1.r, p1.g, p1.b);
-			plot(ipart(intery) + 1, i, data, fpart(intery), p1.r, p1.g, p1.b);
+			plot(ipart(intery), i, data, rfpart(intery), (xpxl2 - i) * p1.r + i * p2.r, (xpxl2 - i) * p1.g + i * p2.g, (xpxl2 - i) * p1.b + i * p2.b);
+			plot(ipart(intery) + 1, i, data, fpart(intery), (xpxl2 - i) * p1.r + i * p2.r, (xpxl2 - i) * p1.g + i * p2.g, (xpxl2 - i) * p1.b + i * p2.b);
 			intery += grad;
 			i++;
 		}
@@ -171,8 +171,8 @@ void wu(char *data, t_dot p1, t_dot p2)
 	{
 		while (i <= xpxl2)
 		{
-			plot(i, ipart(intery), data, rfpart(intery), p1.r, p1.g, p1.b);
-			plot(i, ipart(intery) + 1, data, fpart(intery), p1.r, p1.g, p1.b);
+			plot(i, ipart(intery), data, rfpart(intery), (xpxl2 - i) * p1.r + i * p2.r, (xpxl2 - i) * p1.g + i * p2.g, (xpxl2 - i) * p1.b + i * p2.b);
+			plot(i, ipart(intery) + 1, data, fpart(intery), (xpxl2 - i) * p1.r + i * p2.r, (xpxl2 - i) * p1.g + i * p2.g, (xpxl2 - i) * p1.b + i * p2.b);
 			intery += grad;
 			i++;
 		}
