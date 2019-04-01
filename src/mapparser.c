@@ -6,7 +6,7 @@
 /*   By: wclayton <wclayton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 01:17:22 by lreznak-          #+#    #+#             */
-/*   Updated: 2019/04/01 21:18:20 by wclayton         ###   ########.fr       */
+/*   Updated: 2019/04/01 21:55:40 by lreznak-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ t_dots			*map_parser(const char *path)
 	t_dots			*map;
 	struct stat		f;
 	int				fd, i = 0;
+	int				max_height = -2147483648, min_height = 2147483647;
 	unsigned long long		sz;
 	char 					m[3276222];
 	char				**bsn_split;
@@ -110,13 +111,25 @@ t_dots			*map_parser(const char *path)
 			if (!ws_split[k][m])
 				break ;
 			onedot_with_color = ft_strsplit(ws_split[k][m], ',');
-			map->dots[k][m].z = 15 * atoi(onedot_with_color[0]/*ws_split[k][m]*/);
+			map->dots[k][m].z = atoi(onedot_with_color[0]/*ws_split[k][m]*/);
+			max_height = map->dots[k][m].z > max_height ? map->dots[k][m].z : max_height;
+			min_height = map->dots[k][m].z < min_height ? map->dots[k][m].z : min_height;
+			// map->dots[k][m].z *= 10;
 			map->dots[k][m].x = m * (WIDTH / max_len);
 			map->dots[k][m].y = k * (HEIGHT / i);
 			map->dots[k][m].color = onedot_with_color[1] ? ft_atoi_base(onedot_with_color[1] + 2, 16) : 0xFFFFFF;
 			map->dots[k][m].r = 0b11111111 & (map->dots[k][m].color >> 16);
 			map->dots[k][m].g = 0b11111111 & (map->dots[k][m].color >> 8);
 			map->dots[k][m].b = 0b11111111 & map->dots[k][m].color;
+		}
+	}
+	for (int l = 0; l < i; ++l)
+	{
+		for (int j = 0; j < max_len; ++j)
+		{
+			map->dots[l][j].r = map->dots[l][j].color ? map->dots[l][j].r : ((float)(map->dots[l][j].z - min_height) * (float)(max_height - min_height));
+			// map->dots[l][j].g = map->dots[l][j].color ? map->dots[l][j].r : ((float)(map->dots[l][j].z - min_height) * (float)(max_height - min_height));
+			map->dots[k][m].z *= 10;
 		}
 	}
 	for (int l = 0; l < i; ++l)
