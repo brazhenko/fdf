@@ -41,7 +41,7 @@ void	remove_basis(t_dots *map, t_dot anchor)
 	}
 }
 
-void plot(double x, double y, char *data, double bs, double r, double g, double b)
+void plot(double x, double y, char *data, double bs, double b, double g, double r)
 {
 
 	if (x < WIDTH && y < HEIGHT && y >=0.0 && x >= 0.0)
@@ -163,8 +163,8 @@ void wu(char *data, t_dot p1, t_dot p2)
 		while (i <= xpxl2)
 		{
 			printf("%d %lf %lf\n", i, xpxl1, xpxl2);
-			plot(ipart(intery), i, data, rfpart(intery), p1.r * (xpxl2 - i) / (xpxl2 - xpxl1) + p2.r * i / (xpxl2 - xpxl1), p1.g * (xpxl2 - i) / (xpxl2 - xpxl1) + p2.g * (i) / (xpxl2 - xpxl1), p1.b * (xpxl2 - i) / (xpxl2 - xpxl1) + p2.b * (i) / (xpxl2 - xpxl1));
-			plot(ipart(intery) + 1, i, data, fpart(intery), p1.r * (xpxl2 - i) / (xpxl2 - xpxl1) + p2.r * (i) / (xpxl2 - xpxl1), p1.g * (xpxl2 - i) / (xpxl2 - xpxl1) + p2.g * (i) / (xpxl2 - xpxl1), p1.b * (xpxl2 - i) / (xpxl2 - xpxl1) + p2.b * (i) / (xpxl2 - xpxl1));
+			plot(ipart(intery), i, data, rfpart(intery), p1.r * (i) / (xpxl2 - xpxl1) + p2.r * i / (xpxl2 - xpxl1), p1.g * (xpxl2 - i) / (xpxl2 - xpxl1) + p2.g * (i) / (xpxl2 - xpxl1), p1.b * (xpxl2 - i) / (xpxl2 - xpxl1) + p2.b * (i) / (xpxl2 - xpxl1));
+			plot(ipart(intery) + 1, i, data, fpart(intery), p1.r * (i) / (xpxl2 - xpxl1) + p2.r * (i) / (xpxl2 - xpxl1), p1.g * (xpxl2 - i) / (xpxl2 - xpxl1) + p2.g * (i) / (xpxl2 - xpxl1), p1.b * (xpxl2 - i) / (xpxl2 - xpxl1) + p2.b * (i) / (xpxl2 - xpxl1));
 			intery += grad;
 			i++;
 		}
