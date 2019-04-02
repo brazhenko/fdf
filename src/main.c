@@ -41,14 +41,14 @@ void	remove_basis(t_dots *map, t_dot anchor)
 	}
 }
 
-void plot(double x, double y, char *data, double bs, double b, double g, double r)
+void plot(double x, double y, char *data, double bs, double r, double g, double b)
 {
 
 	if (x < WIDTH && y < HEIGHT && y >=0.0 && x >= 0.0)
 	{
-		data[4 * (int)x + 4 * WIDTH * (int)y] = ceil((int)r * bs);
+		data[4 * (int)x + 4 * WIDTH * (int)y] = ceil((int)b * bs);
 		data[4 * (int)x + 4 * WIDTH * (int)y + 1] = ceil((int)g * bs);
-		data[4 * (int)x + 4 * WIDTH * (int)y + 2] = ceil((int)b * bs);
+		data[4 * (int)x + 4 * WIDTH * (int)y + 2] = ceil((int)r * bs);
 	}
 }
 
@@ -62,6 +62,15 @@ void unplot(char *data)
 void swap(double *a, double *b)
 {
 	double tmp;
+
+	tmp = *a;
+	*a = *b;
+	*b = tmp;
+}
+
+void iswap(unsigned char *a, unsigned char *b)
+{
+	int tmp;
 
 	tmp = *a;
 	*a = *b;
@@ -105,6 +114,7 @@ void wu(char *data, t_dot p1, t_dot p2)
 	int steep;
 	int i;
 	double intery;
+	int flag = 0;
 	
 	steep = (fabs(p2.y - p1.y) > fabs(p2.x - p1.x)) ? 1 : 0;
 	if (steep)
@@ -116,6 +126,10 @@ void wu(char *data, t_dot p1, t_dot p2)
 	{
 		swap(&(p1.x), &(p2.x));
 		swap(&(p1.y), &(p2.y));
+		iswap(&(p1.r), &(p2.r));
+		iswap(&(p1.g), &(p2.g));
+		iswap(&(p1.b), &(p2.b));
+		flag = 1;
 	}
 	dx = p2.x - p1.x;
 	dy = p2.y - p1.y;
@@ -159,24 +173,21 @@ void wu(char *data, t_dot p1, t_dot p2)
 	i = (int)(xpxl1);
 	if (steep)
 	{
-		printf("HUI!!\n");
 		while (i <= xpxl2)
 		{
-			printf("%d %lf %lf\n", i, xpxl1, xpxl2);
-			plot(ipart(intery), i, data, rfpart(intery), p1.r * (i) / (xpxl2 - xpxl1) + p2.r * i / (xpxl2 - xpxl1), p1.g * (xpxl2 - i) / (xpxl2 - xpxl1) + p2.g * (i) / (xpxl2 - xpxl1), p1.b * (xpxl2 - i) / (xpxl2 - xpxl1) + p2.b * (i) / (xpxl2 - xpxl1));
-			plot(ipart(intery) + 1, i, data, fpart(intery), p1.r * (i) / (xpxl2 - xpxl1) + p2.r * (i) / (xpxl2 - xpxl1), p1.g * (xpxl2 - i) / (xpxl2 - xpxl1) + p2.g * (i) / (xpxl2 - xpxl1), p1.b * (xpxl2 - i) / (xpxl2 - xpxl1) + p2.b * (i) / (xpxl2 - xpxl1));
+			plot(ipart(intery), i, data, rfpart(intery), fabs(xpxl2 - i) / (xpxl2 - xpxl1) * p1.r + fabs(i - xpxl1) / (xpxl2 - xpxl1) * p2.r, p1.g, p1.b);
+			plot(ipart(intery) + 1, i, data, fpart(intery), fabs(xpxl2 - i) / (xpxl2 - xpxl1) * p1.r + fabs(i - xpxl1) / (xpxl2 - xpxl1) * p2.r, p1.g, p1.b);
 			intery += grad;
 			i++;
 		}
+
 	}
 	else
 	{
-		printf("HUI!\n");
 		while (i <= xpxl2)
 		{
-			printf("%d %lf %lf\n", i, xpxl1, xpxl2);
-			plot(i, ipart(intery), data, rfpart(intery), fabs(xpxl2 - i) / fabs(xpxl2 - xpxl1) * p1.r, p1.g, p1.b);
-			plot(i, ipart(intery) + 1, data, fpart(intery), fabs(xpxl2 - i) / fabs(xpxl2 - xpxl1) * p1 .r, p1.g, p1.b);
+			plot(i, ipart(intery), data, rfpart(intery), fabs(xpxl2 - i) / (xpxl2 - xpxl1) * p1.r + fabs(i - xpxl1) / (xpxl2 - xpxl1) * p2.r, p1.g, p1.b);
+			plot(i, ipart(intery) + 1, data, fpart(intery), fabs(xpxl2 - i) / (xpxl2 - xpxl1) * p1.r + fabs(i - xpxl1) / (xpxl2 - xpxl1) * p2.r, p1.g, p1.b);
 			intery += grad;
 			i++;
 		}

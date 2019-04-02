@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi_base.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lreznak- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: wclayton <wclayton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 21:25:23 by lreznak-          #+#    #+#             */
-/*   Updated: 2019/03/31 21:26:37 by lreznak-         ###   ########.fr       */
+/*   Updated: 2019/04/02 22:29:08 by wclayton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,20 +55,20 @@ static int	length_number(char *str, int base)
 int			ft_atoi_base(char *nb, int base)
 {
 		int		result;
-			int		length;
+			long long	length;
 
 				if (base == 10)
 							return (ft_atoi(nb));
 					while (*nb == ' ' || *nb == '\t' || *nb == '\n'
 										|| *nb == '\v' || *nb == '\r' || *nb == '\f')
 								nb++;
-						result = 0;
-							length = length_number(nb, base) - 1;
-								while (*nb && length >= 0 && convert_and_check_nb(*nb, base) != -1)
-										{
-													result += convert_and_check_nb(*nb, base) * ft_power(base, length);
-															nb++;
-																	length--;
-																		}
-									return (result);
+			result = 0;
+			length = length_number(nb, base) - 1;
+			while (*nb && length >= 0 && convert_and_check_nb(*nb, base) != -1)
+			{
+				result += convert_and_check_nb(*nb, base) * ft_power(base, length);
+				nb++;
+				length--;
+			}
+									return ((int)result);
 }

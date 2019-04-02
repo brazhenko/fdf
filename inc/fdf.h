@@ -6,7 +6,7 @@
 /*   By: wclayton <wclayton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 21:26:36 by lreznak-          #+#    #+#             */
-/*   Updated: 2019/04/01 20:46:13 by wclayton         ###   ########.fr       */
+/*   Updated: 2019/04/02 22:46:00 by wclayton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ typedef struct	s_dot
 	double 	x;
 	double 	y;
 	double 	z;
-	long long color;
-	int r;
-	int g;
-	int b;
+	int color;
+	unsigned char r;
+	unsigned char g;
+	unsigned  char b;
 }				t_dot;
 
 typedef struct 	s_dots
