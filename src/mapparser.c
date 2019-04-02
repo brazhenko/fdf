@@ -6,7 +6,7 @@
 /*   By: wclayton <wclayton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 01:17:22 by lreznak-          #+#    #+#             */
-/*   Updated: 2019/04/01 22:36:00 by lreznak-         ###   ########.fr       */
+/*   Updated: 2019/04/02 21:38:16 by lreznak-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,12 @@ static int 			ptrptrlen(char **ptr)
 	}
 	return (i);
 }
+
+float			auto_color_sigmoid(float arg)
+{
+	return (1 / (1 + exp(-10 * (arg - 0.5))));
+}
+
 t_dots			*map_parser(const char *path)
 {
 	t_dots			*map;
@@ -127,8 +133,8 @@ t_dots			*map_parser(const char *path)
 	{
 		for (int j = 0; j < max_len; ++j)
 		{
-			 map->dots[l][j].r = map->dots[l][j].color ? map->dots[l][j].r : ((float)(map->dots[l][j].z - min_height) / (float)(max_height - min_height) * 255);
-			// map->dots[l][j].g = map->dots[l][j].color ? map->dots[l][j].r : ((float)(map->dots[l][j].z - min_height) * (float)(max_height - min_height));
+			map->dots[l][j].r = map->dots[l][j].color ? map->dots[l][j].r : (auto_color_sigmoid((float)(map->dots[l][j].z - min_height) / (float)(max_height - min_height)) * 0x4c);
+			map->dots[l][j].g = map->dots[l][j].color ? map->dots[l][j].g : ((-auto_color_sigmoid((float)(map->dots[l][j].z - min_height) / (float)(max_height - min_height)) + 1)* 0x4c);
 			map->dots[l][j].z *= 10;
 		}
 	}
