@@ -175,8 +175,8 @@ void wu(char *data, t_dot p1, t_dot p2)
 	{
 		while (i <= xpxl2)
 		{
-			plot(ipart(intery), i, data, rfpart(intery), fabs(xpxl2 - i) / (xpxl2 - xpxl1) * p1.r + fabs(i - xpxl1) / (xpxl2 - xpxl1) * p2.r, p1.g, p1.b);
-			plot(ipart(intery) + 1, i, data, fpart(intery), fabs(xpxl2 - i) / (xpxl2 - xpxl1) * p1.r + fabs(i - xpxl1) / (xpxl2 - xpxl1) * p2.r, p1.g, p1.b);
+			plot(ipart(intery), i, data, rfpart(intery), fabs(xpxl2 - i) / (xpxl2 - xpxl1) * p1.r + fabs(i - xpxl1) / (xpxl2 - xpxl1) * p2.r, fabs(xpxl2 - i) / (xpxl2 - xpxl1) * p1.g + fabs(i - xpxl1) / (xpxl2 - xpxl1) * p2.g, fabs(xpxl2 - i) / (xpxl2 - xpxl1) * p1.b + fabs(i - xpxl1) / (xpxl2 - xpxl1) * p2.b);
+			plot(ipart(intery) + 1, i, data, fpart(intery), fabs(xpxl2 - i) / (xpxl2 - xpxl1) * p1.r + fabs(i - xpxl1) / (xpxl2 - xpxl1) * p2.r, fabs(xpxl2 - i) / (xpxl2 - xpxl1) * p1.g + fabs(i - xpxl1) / (xpxl2 - xpxl1) * p2.g, fabs(xpxl2 - i) / (xpxl2 - xpxl1) * p1.b + fabs(i - xpxl1) / (xpxl2 - xpxl1) * p2.b);
 			intery += grad;
 			i++;
 		}
@@ -186,8 +186,8 @@ void wu(char *data, t_dot p1, t_dot p2)
 	{
 		while (i <= xpxl2)
 		{
-			plot(i, ipart(intery), data, rfpart(intery), fabs(xpxl2 - i) / (xpxl2 - xpxl1) * p1.r + fabs(i - xpxl1) / (xpxl2 - xpxl1) * p2.r, p1.g, p1.b);
-			plot(i, ipart(intery) + 1, data, fpart(intery), fabs(xpxl2 - i) / (xpxl2 - xpxl1) * p1.r + fabs(i - xpxl1) / (xpxl2 - xpxl1) * p2.r, p1.g, p1.b);
+			plot(i, ipart(intery), data, rfpart(intery), fabs(xpxl2 - i) / (xpxl2 - xpxl1) * p1.r + fabs(i - xpxl1) / (xpxl2 - xpxl1) * p2.r, fabs(xpxl2 - i) / (xpxl2 - xpxl1) * p1.g + fabs(i - xpxl1) / (xpxl2 - xpxl1) * p2.g, fabs(xpxl2 - i) / (xpxl2 - xpxl1) * p1.b + fabs(i - xpxl1) / (xpxl2 - xpxl1) * p2.b);
+			plot(i, ipart(intery) + 1, data, fpart(intery), fabs(xpxl2 - i) / (xpxl2 - xpxl1) * p1.r + fabs(i - xpxl1) / (xpxl2 - xpxl1) * p2.r, fabs(xpxl2 - i) / (xpxl2 - xpxl1) * p1.g + fabs(i - xpxl1) / (xpxl2 - xpxl1) * p2.g, fabs(xpxl2 - i) / (xpxl2 - xpxl1) * p1.b + fabs(i - xpxl1) / (xpxl2 - xpxl1) * p2.b);
 			intery += grad;
 			i++;
 		}
