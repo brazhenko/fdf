@@ -6,7 +6,7 @@
 /*   By: wclayton <wclayton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 21:26:36 by lreznak-          #+#    #+#             */
-/*   Updated: 2019/04/02 22:46:00 by wclayton         ###   ########.fr       */
+/*   Updated: 2019/04/03 23:47:30 by lreznak-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,20 @@
 # include <stdio.h>
 # include "../minilibx_macos/mlx.h"
 # include "ft_select.h"
+# include "libft.h"
+# include <sys/ioctl.h>
 
 # define DIR_ERROR			1
 # define FILE_ERROR			2
 # define ERROR_BIG_FILE		3
 
-# define WIDTH 800
-# define HEIGHT 600
+# define WIDTH 1600
+# define HEIGHT 1200
 
 # define MINIMUM_RADIAN		0.2
+
+# define CL (tgetstr("cl", NULL))
+
 
 typedef struct	s_dot
 {
@@ -88,6 +93,8 @@ void			move_basis(t_dots *map, t_dot anchor);
 void			remove_basis(t_dots *map, t_dot anchor);
 t_dot			anchor(t_dots *map);
 void			map_scale(t_dots *map, int mode);
+void			tty_print(char *type, float data);
+int				fdf_exit(void *data);
 
 
 #endif

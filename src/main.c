@@ -333,6 +333,7 @@ t_dot	anchor(t_dots *map)
 
 int main(int ac, char *av[])
 {
+	signal(SIGINT, fdf_exit);
 	int i = -1, j = -1;
 	t_fdf	*fdf;
 
@@ -358,7 +359,7 @@ int main(int ac, char *av[])
 	fdf->win_ptr = mlx_new_window(fdf->mlx_ptr, WIDTH, HEIGHT, "123123");
 	fdf->img_ptr = mlx_new_image(fdf->mlx_ptr, WIDTH, HEIGHT);
 	fdf->img_data = mlx_get_data_addr(fdf->img_ptr, &(fdf->bpp), &(fdf->sl), &(fdf->endian));
-
+	// system("while :; do afplay music/bag-raiders-shooting-stars-official-video.mp3; done &");
 	while (++i < fdf->map->rows)
 	{
 		j = -1;
