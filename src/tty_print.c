@@ -6,13 +6,13 @@
 /*   By: lreznak- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 21:08:13 by lreznak-          #+#    #+#             */
-/*   Updated: 2019/04/03 23:32:09 by lreznak-         ###   ########.fr       */
+/*   Updated: 2019/04/04 20:19:17 by lreznak-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void		tty_print(char *type, float data)
+void		tty_print(char *type, float data, char *str)
 {
 	struct winsize winsz;
 	char	buf[1024];
@@ -37,5 +37,10 @@ void		tty_print(char *type, float data)
 	{
 		ft_putstr_fd(tgoto(tgetstr("cm", NULL), 5, 4), STDIN_FILENO);
 		printf("%lf\n", data);
+	}
+	else if (ft_strequ(type, "log"))
+	{
+		ft_putstr_fd(tgoto(tgetstr("cm", NULL), 5, 10), STDIN_FILENO);
+		ft_putstr_fd(str, STDIN_FILENO);
 	}
 }
