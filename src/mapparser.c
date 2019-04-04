@@ -6,7 +6,7 @@
 /*   By: wclayton <wclayton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 01:17:22 by lreznak-          #+#    #+#             */
-/*   Updated: 2019/04/03 23:39:10 by lreznak-         ###   ########.fr       */
+/*   Updated: 2019/04/04 20:11:27 by lreznak-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,6 +179,6 @@ t_dots			*map_parser(const char *path)
 //		}
 //		printf("\n");
 //	}
-	tty_print("angle_x", 2.4);
+	// tty_print("angle_x", 2.4, NULL);
 	return (map);
 }

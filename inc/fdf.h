@@ -6,7 +6,7 @@
 /*   By: wclayton <wclayton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 21:26:36 by lreznak-          #+#    #+#             */
-/*   Updated: 2019/04/03 23:47:30 by lreznak-         ###   ########.fr       */
+/*   Updated: 2019/04/04 21:04:17 by lreznak-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ typedef struct		s_fdf
 	int				bpp;
 	int				sl;
 	int				endian;
+	int				is_chill;
 }					t_fdf;
 
 t_dots			*map_parser(const char *path);
@@ -93,8 +94,14 @@ void			move_basis(t_dots *map, t_dot anchor);
 void			remove_basis(t_dots *map, t_dot anchor);
 t_dot			anchor(t_dots *map);
 void			map_scale(t_dots *map, int mode);
-void			tty_print(char *type, float data);
+void		tty_print(char *type, float data, char *str);
+
+
+
+
 int				fdf_exit(void *data);
+
+int		tupa_chill(t_fdf *fdf);
 
 
 #endif

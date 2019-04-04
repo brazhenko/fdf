@@ -194,7 +194,7 @@ void wu(char *data, t_dot p1, t_dot p2)
 	}
 }
 
-void drawmap(t_fdf *fdf)
+int drawmap(t_fdf *fdf)
 {
 	int i = -1;
 	int j = -1;
@@ -212,6 +212,7 @@ void drawmap(t_fdf *fdf)
 		}
 	}
 	mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->img_ptr, 0, 0);
+	return (0);
 }
 
 int key_press(int keycode, t_fdf *fdf)
@@ -219,8 +220,21 @@ int key_press(int keycode, t_fdf *fdf)
 	fdf->keyboard->pressed[keycode] = 1;
 	int i = -1;
 	int j = -1;
-	
-	if (keycode == 2)
+	static int flag = 0;
+
+	if (flag == 1)
+	{
+		map_twister_x(fdf->map, 1);
+		drawmap(fdf);
+	}
+	else if (keycode == 3)
+	{
+		mlx_loop_hook(fdf->mlx_ptr, tupa_chill, fdf);
+		system("while :; do afplay music/bag-raiders-shooting-stars-official-video.mp3; done &");
+		sleep(23);
+		fdf->is_chill = 1;
+	}
+	else if (keycode == 2)
 	{
 		map_twister_y(fdf->map, 1);
 		drawmap(fdf);
@@ -359,7 +373,6 @@ int main(int ac, char *av[])
 	fdf->win_ptr = mlx_new_window(fdf->mlx_ptr, WIDTH, HEIGHT, "123123");
 	fdf->img_ptr = mlx_new_image(fdf->mlx_ptr, WIDTH, HEIGHT);
 	fdf->img_data = mlx_get_data_addr(fdf->img_ptr, &(fdf->bpp), &(fdf->sl), &(fdf->endian));
-	// system("while :; do afplay music/bag-raiders-shooting-stars-official-video.mp3; done &");
 	while (++i < fdf->map->rows)
 	{
 		j = -1;
@@ -371,6 +384,7 @@ int main(int ac, char *av[])
 				wu(fdf->img_data, fdf->map->dots[i][j], fdf->map->dots[i + 1][j]);
 		}
 	}
+
 	mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->img_ptr, 0, 0);
 	//some hooks
 	mlx_hook(fdf->win_ptr, 2, 0, key_press, fdf);
@@ -379,5 +393,6 @@ int main(int ac, char *av[])
 	mlx_hook(fdf->win_ptr, 5, 0, mouse_release, fdf);
 	mlx_hook(fdf->win_ptr, 6, 0, mouse_move, fdf);
 	mlx_hook(fdf->win_ptr, 17, 0, close, fdf);
+
 	mlx_loop(fdf->mlx_ptr);
 }

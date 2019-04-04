@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf_exit.c                                         :+:      :+:    :+:   */
+/*   tupa_chill.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lreznak- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/03 23:40:02 by lreznak-          #+#    #+#             */
-/*   Updated: 2019/04/04 21:13:48 by lreznak-         ###   ########.fr       */
+/*   Created: 2019/04/04 20:00:18 by lreznak-          #+#    #+#             */
+/*   Updated: 2019/04/04 22:34:05 by lreznak-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int		fdf_exit(void *data)
+int		tupa_chill(t_fdf *fdf)
 {
-	ft_putstr_fd(CL, 1);
-	init_window(0);
-	set_keypress(0);
-	system("kill $(ps | grep  'while :; do afplay music/bag-raiders-shooting-stars-official-video.mp3' | awk '{ print $1 }')");
-	system("kill $(ps | grep \"afplay\" | awk '{ print $1 }')");
-	exit(1);
+	usleep(40000);
+	if (fdf->is_chill)
+	{
+		map_chill_twister(fdf->map, 1);
+		map_scale(fdf->map, 0);
+	}
+	drawmap(fdf);
+	return (0);
 }
