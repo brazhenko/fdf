@@ -6,7 +6,7 @@
 /*   By: wclayton <wclayton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 21:26:36 by lreznak-          #+#    #+#             */
-/*   Updated: 2019/04/03 23:47:30 by lreznak-         ###   ########.fr       */
+/*   Updated: 2019/04/04 23:11:38 by wclayton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ typedef struct		s_fdf
 	int				bpp;
 	int				sl;
 	int				endian;
+	int				projection;
 }					t_fdf;
 
 t_dots			*map_parser(const char *path);
