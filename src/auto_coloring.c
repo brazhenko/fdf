@@ -6,7 +6,7 @@
 /*   By: lreznak- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 09:57:16 by lreznak-          #+#    #+#             */
-/*   Updated: 2019/04/07 09:58:26 by lreznak-         ###   ########.fr       */
+/*   Updated: 2019/04/07 10:20:06 by lreznak-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@ void				auto_coloring(t_dots *map)
 			map->dots[i][j].r = map->dots[i][j].color ? map->dots[i][j].r :
 					(unsigned char)(auto_color_sigmoid((float)
 					(map->dots[i][j].z - map->minh) /
-					(float)(map->maxh - map->minh)) * 0x4c);
+					(float)(map->maxh - map->minh)) * 0xAA);
 			map->dots[i][j].g = map->dots[i][j].color ? map->dots[i][j].g :
 					(unsigned char)((-auto_color_sigmoid((float)
 					(map->dots[i][j].z - map->minh) /
-					(float)(map->maxh - map->minh)) + 1) * 0x4c);
+					(float)(map->maxh - map->minh)) + 1) * 0xAA);
 			map->dots[i][j].z *= 10;
 		}
 	}
