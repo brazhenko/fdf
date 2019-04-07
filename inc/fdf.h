@@ -109,8 +109,9 @@ void			tty_print(char *type, float data, char *str);
 
 
 int				fdf_exit(void *data);
+int				file_exit(int code);
 
-int		tupa_chill(t_fdf *fdf);
+int				tupa_chill(t_fdf *fdf);
 
 
 #endif

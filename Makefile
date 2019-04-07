@@ -6,7 +6,7 @@ INC				= inc
 all:
 	@echo "\033[32mfdf compiling...\033[0m"
 	@gcc $(SRC)/main.c $(SRC)/mapparser.c \
-	$(SRC)/pretty_terminal.c $(SRC)/tty_configure.c $(SRC)/map_twister.c \
+	$(SRC)/tty_configure.c $(SRC)/map_twister.c \
 	$(SRC)/tty_print.c \
 	$(SRC)/tupa_chill.c \
 	$(SRC)/fdf_exit.c \

@@ -6,46 +6,18 @@
 /*   By: wclayton <wclayton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 01:17:22 by lreznak-          #+#    #+#             */
-/*   Updated: 2019/04/07 04:35:51 by lreznak-         ###   ########.fr       */
+/*   Updated: 2019/04/07 09:12:46 by lreznak-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "fdf.h"
 
+static int			ptrlen(char **ptr)
+{
+	int		i;
 
-int 			file_exit(int code)
-{
-	if (code == DIR_ERROR)
-	{
-		ft_putstr("Do not attach directory!\n");
-		exit(EXIT_FAILURE);
-	}
-	else if (code == FILE_ERROR)
-	{
-		ft_putstr("There is no such file!\n");
-		exit(EXIT_FAILURE);
-	}
-	else if (code == ERROR_BIG_FILE)
-	{
-		ft_putstr("File is too big!!\n");
-		exit(EXIT_FAILURE);
-	}
-	return (0);
-}
-
-static int 			ptrlen(char **ptr)
-{
-	int		i = 0;
-	while (ptr[i])
-	{
-		i++;
-	}
-	return (i);
-}
-static int 			ptrptrlen(char **ptr)
-{
-	int		i = 0;
+	i = 0;
 	while (ptr[i])
 	{
 		i++;
@@ -53,112 +25,142 @@ static int 			ptrptrlen(char **ptr)
 	return (i);
 }
 
-float			auto_color_sigmoid(float arg)
+static int			ptrptrlen(char **ptr)
+{
+	int		i;
+
+	i = 0;
+	while (ptr[i])
+	{
+		i++;
+	}
+	return (i);
+}
+
+float				auto_color_sigmoid(float arg)
 {
 	return (1 / (1 + exp(-10 * (arg - 0.5))));
 }
 
-t_dots			*map_parser(const char *path)
+static void			auto_coloring(t_dots *map)
 {
-	t_dots			*map;
-	struct stat		f;
-	int				fd, i = 0;
-	int				max_height = -2147483648, min_height = 2147483647;
-	unsigned long long		sz;
-	char 					m[3276222];
-	char				**bsn_split;
-	char 				***ws_split = malloc(sizeof(char **) * 100000);
-	int 				max_len = 0;
-	int 				strcount = 0;
+	int		i;
+	int		j;
+
+	i = -1;
+	while (++i < map->rows)
+	{
+		j = -1;
+		while (++j < map->cols)
+		{
+			map->dots[i][j].r = map->dots[i][j].color ? map->dots[i][j].r :
+			(unsigned char)(auto_color_sigmoid((float)
+			(map->dots[i][j].z - map->minh) /
+			(float)(map->maxh - map->minh)) * 0x4c);
+			map->dots[i][j].g = map->dots[i][j].color ? map->dots[i][j].g :
+			(unsigned char)((-auto_color_sigmoid((float)
+			(map->dots[i][j].z - map->minh) /
+			(float)(map->maxh - map->minh)) + 1) * 0x4c);
+			map->dots[i][j].z *= 10;
+		}
+	}
+}
+
+static void			init_map(t_dots *map, char ***ws_split)
+{
+	int			i;
+	int			j;
+	char		**one_dot_with_color;
+
+	i = -1;
+	while (ws_split[++i])
+	{
+		j = -1;
+		map->dots[i] = (t_dot *)malloc(sizeof(t_dot) * map->cols);
+		while (ws_split[i][++j])
+		{
+			one_dot_with_color = ft_strsplit(ws_split[i][j], ',');
+			map->dots[i][j] = (t_dot){j * (WIDTH / map->cols), i * (HEIGHT /
+				map->rows), ft_atoi(one_dot_with_color[0]),
+				one_dot_with_color[1] ? ft_atoi_base(one_dot_with_color[1] + 2,
+				16) : 0, 0b11111111 & (map->dots[i][j].color >> 16),
+				0b11111111 & (map->dots[i][j].color >> 8),
+				0b11111111 & map->dots[i][j].color};
+			map->maxh = map->dots[i][j].z > map->maxh ?
+					map->dots[i][j].z : map->maxh;
+			map->minh = map->dots[i][j].z < map->minh ?
+					map->dots[i][j].z : map->minh;
+		}
+	}
+	auto_coloring(map);
+}
+
+char				*map_reader(const char *path)
+{
+	int					fd;
+	char				m[3276222];
+	struct stat			f;
 
 	if ((fd = open(path, O_RDONLY)) > 0)
 	{
 		stat(path, &f);
 		if (S_ISDIR(f.st_mode))
-		{
 			file_exit(DIR_ERROR);
-		}
 	}
 	else
-	{
 		file_exit(FILE_ERROR);
-	}
-	if (1 /* f.st_size < 0b111111111111111111111 */)
-	{
+	if (f.st_size < 0xfffffffffffffff)
 		read(fd, m, f.st_size);
-	}
 	else
 		file_exit(ERROR_BIG_FILE);
-	bsn_split = ft_strsplit(m, '\n');
-	while (*bsn_split)
-	{
-		ws_split[i] = ft_strsplit(*bsn_split, ' ');
-		max_len = ptrlen(ws_split[i]) > max_len ? ptrlen(ws_split[i]) : max_len;
-		bsn_split++;
-		i++;
-	}
-	strcount = i; //ptrptrlen(bsn_split);
-	ws_split[i] = NULL;
-	map = (t_dots *)malloc(sizeof(t_dots));
-	map->dots = (t_dot **)malloc(sizeof(t_dot *) * (i + 1));
-	map->dots[i] = NULL;
-	for (register int j = 0 ; j < i ; ++j)
-	{
-		map->dots[j] = (t_dot *)malloc(sizeof(t_dot) * max_len);
-	}
+	return (m);
+}
 
-	char	**onedot_with_color;
-	for (register int k = 0 ; k < 100000; ++k)
-	{
-		if (!ws_split[k])
-			break ;
-		for (int m = 0; m < max_len; ++m)
-		{
-			if (!ws_split[k][m])
-				break ;
-			onedot_with_color = ft_strsplit(ws_split[k][m], ',');
-			map->dots[k][m].z = atoi(onedot_with_color[0]/*ws_split[k][m]*/);
-			max_height = map->dots[k][m].z > max_height ? map->dots[k][m].z : max_height;
-			min_height = map->dots[k][m].z < min_height ? map->dots[k][m].z : min_height;
-			// map->dots[k][m].z *= 10;
-			map->dots[k][m].x = m * (WIDTH / max_len);
-			map->dots[k][m].y = k * (HEIGHT / i);
-			 map->dots[k][m].color = onedot_with_color[1] ? ft_atoi_base(onedot_with_color[1] + 2, 16) : 0;
-			 map->dots[k][m].r = 0b11111111 & (map->dots[k][m].color >> 16);
-			map->dots[k][m].g = 0b11111111 & (map->dots[k][m].color >> 8);
-			map->dots[k][m].b = 0b11111111 & map->dots[k][m].color;
-		}
-	}
+void				anching(t_dots *map)
+{
 	map->angle.x = 0;
 	map->angle.y = 0;
 	map->angle.z = 0;
-	map->maxh = max_height;
-	map->minh = min_height;
-	map->ani.z = min_height;
+	map->ani.z = map->minh;
+	map->anz.z = map->maxh;
 	map->ani.y = map->dots[0][0].y;
 	map->ani.x = map->dots[0][0].x;
-	map->anz.z = max_height;
 	map->anz.y = map->dots[0][0].y;
 	map->anz.x = map->dots[0][0].x;
-	map->anx.z = min_height;
-	map->anx.y = map->dots[0][max_len - 1].y;
-	map->anx.x = map->dots[0][max_len - 1].x;
-	map->any.z = min_height;
-	map->any.y = map->dots[i - 1][0].y;
-	map->any.x = map->dots[i - 1][0].x;
+	map->anx.z = map->minh;
+	map->anx.y = map->dots[0][map->cols - 1].y;
+	map->anx.x = map->dots[0][map->cols - 1].x;
+	map->any.z = map->minh;
+	map->any.y = map->dots[map->rows - 1][0].y;
+	map->any.x = map->dots[map->rows - 1][0].x;
 	map->anc.x = (map->anx.x + map->any.x + map->anz.x - map->ani.x) / 2;
 	map->anc.y = (map->anx.y + map->any.y + map->anz.y - map->ani.y) / 2;
 	map->anc.z = (map->anx.z + map->any.z + map->anz.z - map->ani.z) / 2;
-	for (int l = 0; l < i; ++l)
+}
+
+t_dots				*map_parser(const char *path)
+{
+	t_dots		*map;
+	char		**bsn_split;
+	char		**ws_split[100000];
+
+	map = (t_dots *)malloc(sizeof(t_dots));
+	bsn_split = ft_strsplit(map_reader(path), '\n');
+	map->maxh = -2147483648;
+	map->minh = 2147483647;
+	map->cols = 0;
+	map->rows = -1;
+	while (bsn_split[++(map->rows)])
 	{
-		for (int j = 0; j < max_len; ++j)
-		{
-			map->dots[l][j].r = map->dots[l][j].color ? map->dots[l][j].r : (auto_color_sigmoid((float)(map->dots[l][j].z - min_height) / (float)(max_height - min_height)) * 0x4c);
-			map->dots[l][j].g = map->dots[l][j].color ? map->dots[l][j].g : ((-auto_color_sigmoid((float)(map->dots[l][j].z - min_height) / (float)(max_height - min_height)) + 1)* 0x4c);
-			map->dots[l][j].z *= 10;
-		}
+		ws_split[map->rows] = ft_strsplit(bsn_split[map->rows], ' ');
+		map->cols = ptrlen(ws_split[map->rows]) > map->cols ?
+						ptrlen(ws_split[map->rows]) : map->cols;
 	}
-	map->cols = max_len;
-	map->rows = i;
+	ws_split[map->rows] = NULL;
+	map->dots = (t_dot **)malloc(sizeof(t_dot *) * (map->rows + 1));
+	map->dots[map->rows] = NULL;
+	map->rows = map->rows;
+	init_map(map, ws_split);
+	anching(map);
 	return (map);
 }
