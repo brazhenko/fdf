@@ -6,7 +6,7 @@
 /*   By: wclayton <wclayton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 04:26:06 by lreznak-          #+#    #+#             */
-/*   Updated: 2019/04/07 09:54:03 by wclayton         ###   ########.fr       */
+/*   Updated: 2019/04/07 10:06:47 by wclayton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,18 @@ void	wu2(char *data, t_dot *p1, t_dot *p2, t_pxl *a)
 	if (a->steep)
 	{
 		a->plc = (t_pot){(double)(p1->r), (double)(p1->g), (double)(p1->b)};
-		plot((t_xy){a->ypxl1, a->xpxl1}, data, rfpart(a->yend) * a->xgap, a->plc);
-		plot((t_xy){a->ypxl1 + 1, a->xpxl1}, data, fpart(a->yend) * a->xgap, a->plc);
+		plot((t_xy){a->ypxl1, a->xpxl1}, data, rfpart(a->yend) * a->xgap,
+			a->plc);
+		plot((t_xy){a->ypxl1 + 1, a->xpxl1}, data, fpart(a->yend) * a->xgap,
+			a->plc);
 	}
 	else
 	{
 		a->plc = (t_pot){(double)(p1->r), (double)(p1->g), (double)(p1->b)};
-		plot((t_xy){a->xpxl1, a->ypxl1}, data, rfpart(a->yend) * a->xgap, a->plc);
-		plot((t_xy){a->xpxl1, a->ypxl1 + 1}, data, fpart(a->yend) * a->xgap, a->plc);
+		plot((t_xy){a->xpxl1, a->ypxl1}, data, rfpart(a->yend) * a->xgap,
+			a->plc);
+		plot((t_xy){a->xpxl1, a->ypxl1 + 1}, data, fpart(a->yend) * a->xgap,
+			a->plc);
 	}
 	a->intery = a->yend + a->grad;
 	a->xend = round(p2->x);
@@ -76,7 +80,8 @@ void	wu3(char *data, t_dot *p1, t_dot *p2, t_pxl *a)
 				fabs(a->xpxl2 - a->i) / (a->xpxl2 - a->xpxl1) * p1->b +
 					fabs(a->i - a->xpxl1) / (a->xpxl2 - a->xpxl1) * p2->b};
 		plot((t_xy){ipart(a->intery), a->i}, data, rfpart(a->intery), a->plc);
-		plot((t_xy){ipart(a->intery) + 1, a->i}, data, fpart(a->intery), a->plc);
+		plot((t_xy){ipart(a->intery) + 1, a->i}, data, fpart(a->intery),
+			a->plc);
 		a->intery += a->grad;
 		a->i++;
 	}
@@ -94,7 +99,8 @@ void	wu4(char *data, t_dot *p1, t_dot *p2, t_pxl *a)
 				fabs(a->xpxl2 - a->i) / (a->xpxl2 - a->xpxl1) * p1->b +
 					fabs(a->i - a->xpxl1) / (a->xpxl2 - a->xpxl1) * p2->b};
 		plot((t_xy){a->i, ipart(a->intery)}, data, rfpart(a->intery), a->plc);
-		plot((t_xy){a->i, ipart(a->intery) + 1}, data, fpart(a->intery), a->plc);
+		plot((t_xy){a->i, ipart(a->intery) + 1}, data, fpart(a->intery),
+			a->plc);
 		a->intery += a->grad;
 		a->i++;
 	}
