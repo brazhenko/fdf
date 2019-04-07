@@ -5,7 +5,7 @@
 
 //void swap(t_point p1)
 
-void	move_basis(t_dots *map, t_dot anchor)
+void	move_basis(t_dots *map)
 {
 	int i;
 	int j;
@@ -16,14 +16,14 @@ void	move_basis(t_dots *map, t_dot anchor)
 		j = -1;
 		while (++j < map->cols)
 		{
-			map->dots[i][j].x -= anchor.x;
-			map->dots[i][j].y -= anchor.y;
-			map->dots[i][j].z -= anchor.z;
+			map->dots[i][j].x -= map->anc.x;
+			map->dots[i][j].y -= map->anc.y;
+			map->dots[i][j].z -= map->anc.z;
 		}
 	}
 }
 
-void	remove_basis(t_dots *map, t_dot anchor)
+void	remove_basis(t_dots *map)
 {
 	int i;
 	int j;
@@ -34,9 +34,9 @@ void	remove_basis(t_dots *map, t_dot anchor)
 		j = -1;
 		while (++j < map->cols)
 		{
-			map->dots[i][j].x += anchor.x;
-			map->dots[i][j].y += anchor.y;
-			map->dots[i][j].z += anchor.z;
+			map->dots[i][j].x += map->anc.x;
+			map->dots[i][j].y += map->anc.y;
+			map->dots[i][j].z += map->anc.z;
 		}
 	}
 }
@@ -95,106 +95,6 @@ double fpart(double x)
 double rfpart(double x)
 {
 	return(1 - fpart(x));
-}
-
-void wupers(char *data, t_dot p1, t_dot p2)
-{
-
-	double dx;
-	double dy;
-	double grad;
-	double xend;
-	double yend;
-	double xgap;
-	double xpxl1;
-	double ypxl1;
-	double xpxl2;
-	double ypxl2;
-	int steep;
-	int i;
-	double intery;
-	int flag = 0;
-	int tmpx;
-	int tmpy;
-
-	tmpx = p1.x;
-	p1.x = 
-
-	steep = (fabs(p2.y - p1.y) > fabs(p2.x - p1.x)) ? 1 : 0;
-	if (steep)
-	{
-		swap(&(p1.x), &(p1.y));
-		swap(&(p2.x), &(p2.y));
-	}
-	if (p1.x > p2.x)
-	{
-		swap(&(p1.x), &(p2.x));
-		swap(&(p1.y), &(p2.y));
-		iswap(&(p1.r), &(p2.r));
-		iswap(&(p1.g), &(p2.g));
-		iswap(&(p1.b), &(p2.b));
-		flag = 1;
-	}
-	dx = p2.x - p1.x;
-	dy = p2.y - p1.y;
-	grad = dy / dx;
-	if (dx == 0.0)
-		grad = 1.0;
-
-	xend = round(p1.x);
-	yend = p1.y + grad * (xend - p1.x);
-	xgap = rfpart(p1.x + 0.5);
-	xpxl1 = xend;
-	ypxl1 = ipart(yend);
-	if (steep)
-	{
-		plot(ypxl1, xpxl1, data, rfpart(yend) * xgap, p1.r, p1.g, p1.b);
-		plot(ypxl1 + 1, xpxl1, data, fpart(yend) * xgap, p1.r, p1.g, p1.b);
-	}
-	else
-	{
-		plot(xpxl1, ypxl1, data, rfpart(yend) * xgap, p1.r, p1.g, p1.b);
-		plot(xpxl1, ypxl1 + 1, data, fpart(yend) * xgap, p1.r, p1.g, p1.b);
-	}
-	intery = yend + grad;
-
-	xend = round(p2.x);
-	yend = p2.y + grad * (xend - p2.x);
-	xgap = fpart(p2.x + 0.5);
-	xpxl2 = xend;
-	ypxl2 = ipart(yend);
-	if (steep)
-	{
-		plot(ypxl2, xpxl2, data, rfpart(yend) * xgap, p2.r, p2.g, p2.b);
-		plot(ypxl2 + 1, xpxl2, data, fpart(yend) * xgap, p2.r, p2.g, p2.b);
-	}
-	else
-	{
-		plot(xpxl2, ypxl2, data, rfpart(yend) * xgap, p2.r, p2.g, p2.b);
-		plot(xpxl2, ypxl2 + 1, data, fpart(yend) * xgap, p2.r, p2.g, p2.b);
-	}
-
-	i = (int)(xpxl1);
-	if (steep)
-	{
-		while (i <= xpxl2)
-		{
-			plot(ipart(intery), i, data, rfpart(intery), fabs(xpxl2 - i) / (xpxl2 - xpxl1) * p1.r + fabs(i - xpxl1) / (xpxl2 - xpxl1) * p2.r, fabs(xpxl2 - i) / (xpxl2 - xpxl1) * p1.g + fabs(i - xpxl1) / (xpxl2 - xpxl1) * p2.g, fabs(xpxl2 - i) / (xpxl2 - xpxl1) * p1.b + fabs(i - xpxl1) / (xpxl2 - xpxl1) * p2.b);
-			plot(ipart(intery) + 1, i, data, fpart(intery), fabs(xpxl2 - i) / (xpxl2 - xpxl1) * p1.r + fabs(i - xpxl1) / (xpxl2 - xpxl1) * p2.r, fabs(xpxl2 - i) / (xpxl2 - xpxl1) * p1.g + fabs(i - xpxl1) / (xpxl2 - xpxl1) * p2.g, fabs(xpxl2 - i) / (xpxl2 - xpxl1) * p1.b + fabs(i - xpxl1) / (xpxl2 - xpxl1) * p2.b);
-			intery += grad;
-			i++;
-		}
-	}
-	else
-	{
-		while (i <= xpxl2)
-		{
-			plot(i, ipart(intery), data, rfpart(intery), fabs(xpxl2 - i) / (xpxl2 - xpxl1) * p1.r + fabs(i - xpxl1) / (xpxl2 - xpxl1) * p2.r, fabs(xpxl2 - i) / (xpxl2 - xpxl1) * p1.g + fabs(i - xpxl1) / (xpxl2 - xpxl1) * p2.g, fabs(xpxl2 - i) / (xpxl2 - xpxl1) * p1.b + fabs(i - xpxl1) / (xpxl2 - xpxl1) * p2.b);
-			plot(i, ipart(intery) + 1, data, fpart(intery), fabs(xpxl2 - i) / (xpxl2 - xpxl1) * p1.r + fabs(i - xpxl1) / (xpxl2 - xpxl1) * p2.r, fabs(xpxl2 - i) / (xpxl2 - xpxl1) * p1.g + fabs(i - xpxl1) / (xpxl2 - xpxl1) * p2.g, fabs(xpxl2 - i) / (xpxl2 - xpxl1) * p1.b + fabs(i - xpxl1) / (xpxl2 - xpxl1) * p2.b);
-			intery += grad;
-			i++;
-		}
-	}
 }
 
 void wu(char *data, t_dot p1, t_dot p2)
@@ -320,16 +220,6 @@ int key_press(int keycode, t_fdf *fdf)
 	
 	if (keycode == 3)
 	{
-		fdf->projection = 1
-	static int flag = 0;
-
-	if (flag == 1)
-	{
-		map_twister_x(fdf->map, 1);
-		drawmap(fdf);
-	}
-	else if (keycode == 3)
-	{
 		mlx_loop_hook(fdf->mlx_ptr, tupa_chill, fdf);
 		system("while :; do afplay music/bag-raiders-shooting-stars-official-video.mp3; done &");
 		sleep(23);
@@ -337,32 +227,32 @@ int key_press(int keycode, t_fdf *fdf)
 	}
 	else if (keycode == 2)
 	{
-		map_twister_y(fdf->map, 1);
+		map_twister_y(fdf->map, 1, MINIMUM_RADIAN);
 		drawmap(fdf);
 	}
 	else if (keycode == 13)
 	{
-		map_twister_x(fdf->map, 1);
+		map_twister_x(fdf->map, 1, MINIMUM_RADIAN);
 		drawmap(fdf);
 	}
 	else if (keycode == 14)
 	{
-		map_twister_z(fdf->map, 1);
+		map_twister_z(fdf->map, 1, MINIMUM_RADIAN);
 		drawmap(fdf);
 	}
 	else if (keycode == 0)
 	{
-		map_twister_y(fdf->map, 0);
+		map_twister_y(fdf->map, 0, MINIMUM_RADIAN);
 		drawmap(fdf);
 	}
 	else if (keycode == 1)
 	{
-		map_twister_x(fdf->map, 0);
+		map_twister_x(fdf->map, 0, MINIMUM_RADIAN);
 		drawmap(fdf);
 	}
 	else if (keycode == 12)
 	{
-		map_twister_z(fdf->map, 0);
+		map_twister_z(fdf->map, 0, MINIMUM_RADIAN);
 		drawmap(fdf);
 	}
 	return(0);
@@ -428,22 +318,14 @@ int mouse_move(int x, int y, t_fdf *fdf)
 				fdf->map->dots[i][j].y += (y - fdf->mouse->y);
 			}
 		}
+		fdf->map->anc.x += (x - fdf->mouse->x);
+		fdf->map->anc.y += (y - fdf->mouse->y);
+		drawmap(fdf);
 	}
 	fdf->mouse->x = x;
 	fdf->mouse->y = y;
-	drawmap(fdf);
 	//printf("mm x %d y %d\n", x, y);
 	return (0);
-}
-
-t_dot	anchor(t_dots *map)
-{
-	t_dot anc;
-
-	anc.x = (map->dots[map->rows - 1][0].x + map->dots[0][map->cols - 1].x) / 2;
-	anc.y = (map->dots[map->rows - 1][0].y + map->dots[0][map->cols - 1].y) / 2;
-	anc.z = map->dots[map->rows / 2][map->cols / 2].z / 2;
-	return (anc);
 }
 
 int main(int ac, char *av[])

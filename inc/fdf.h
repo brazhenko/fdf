@@ -6,11 +6,7 @@
 /*   By: wclayton <wclayton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 21:26:36 by lreznak-          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2019/04/04 23:11:38 by wclayton         ###   ########.fr       */
-=======
-/*   Updated: 2019/04/04 21:04:17 by lreznak-         ###   ########.fr       */
->>>>>>> 57fd8b430d689d345dea917cebd8c68b8d08c668
+/*   Updated: 2019/04/07 03:23:32 by wclayton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +50,17 @@ typedef struct	s_dot
 
 typedef struct 	s_dots
 {
+	t_dot	angle;
 	int		cols;
 	int		rows;
+	int		maxh;
+	int		minh;
+	t_dot	anc;
 	t_dot	**dots;
+	t_dot	ani;
+	t_dot	anx;
+	t_dot	any;
+	t_dot	anz;
 }				t_dots;
 
 typedef struct		s_mouse
@@ -84,25 +88,22 @@ typedef struct		s_fdf
 	int				bpp;
 	int				sl;
 	int				endian;
-<<<<<<< HEAD
 	int				projection;
-=======
 	int				is_chill;
->>>>>>> 57fd8b430d689d345dea917cebd8c68b8d08c668
 }					t_fdf;
 
 t_dots			*map_parser(const char *path);
 int 			file_exit(int code);
 void			wu(char *data, t_dot p1, t_dot p2);
 int				pretty_terminal(int status);
-void			map_twister_x(t_dots *map, int mode);
-void			map_twister_y(t_dots *map, int mode);
-void			map_twister_z(t_dots *map, int mode);
-void			move_basis(t_dots *map, t_dot anchor);
-void			remove_basis(t_dots *map, t_dot anchor);
+void			map_twister_x(t_dots *map, int mode, double angle);
+void			map_twister_y(t_dots *map, int mode, double angle);
+void			map_twister_z(t_dots *map, int mode, double angle);
+void			move_basis(t_dots *map);
+void			remove_basis(t_dots *map);
 t_dot			anchor(t_dots *map);
 void			map_scale(t_dots *map, int mode);
-void		tty_print(char *type, float data, char *str);
+void			tty_print(char *type, float data, char *str);
 
 
 

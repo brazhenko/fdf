@@ -6,7 +6,7 @@
 /*   By: wclayton <wclayton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 01:17:22 by lreznak-          #+#    #+#             */
-/*   Updated: 2019/04/04 20:11:27 by lreznak-         ###   ########.fr       */
+/*   Updated: 2019/04/05 21:28:00 by wclayton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,26 @@ t_dots			*map_parser(const char *path)
 			map->dots[k][m].b = 0b11111111 & map->dots[k][m].color;
 		}
 	}
+	map->angle.x = 0;
+	map->angle.y = 0;
+	map->angle.z = 0;
+	map->maxh = max_height;
+	map->minh = min_height;
+	map->ani.z = min_height;
+	map->ani.y = map->dots[0][0].y;
+	map->ani.x = map->dots[0][0].x;
+	map->anz.z = max_height;
+	map->anz.y = map->dots[0][0].y;
+	map->anz.x = map->dots[0][0].x;
+	map->anx.z = min_height;
+	map->anx.y = map->dots[0][max_len - 1].y;
+	map->anx.x = map->dots[0][max_len - 1].x;
+	map->any.z = min_height;
+	map->any.y = map->dots[i - 1][0].y;
+	map->any.x = map->dots[i - 1][0].x;
+	map->anc.x = (map->anx.x + map->any.x + map->anz.x - map->ani.x) / 2;
+	map->anc.y = (map->anx.y + map->any.y + map->anz.y - map->ani.y) / 2;
+	map->anc.z = (map->anx.z + map->any.z + map->anz.z - map->ani.z) / 2;
 	for (int l = 0; l < i; ++l)
 	{
 		for (int j = 0; j < max_len; ++j)

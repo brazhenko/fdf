@@ -6,7 +6,7 @@
 /*   By: wclayton <wclayton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 01:17:22 by lreznak-          #+#    #+#             */
-/*   Updated: 2019/04/03 18:45:14 by lreznak-         ###   ########.fr       */
+/*   Updated: 2019/04/05 21:28:01 by wclayton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,9 @@ t_dots			*map_parser(const char *path)
 			map->dots[k][m].b = 0b11111111 & map->dots[k][m].color;
 		}
 	}
+	
+	
+
 	for (int l = 0; l < i; ++l)
 	{
 		for (int j = 0; j < max_len; ++j)
