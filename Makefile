@@ -9,6 +9,7 @@ all:
 	$(SRC)/tty_configure.c $(SRC)/map_twister.c \
 	$(SRC)/tty_print.c \
 	$(SRC)/tupa_chill.c \
+	$(SRC)/auto_coloring.c \
 	$(SRC)/fdf_exit.c \
 	$(SRC)/wu.c \
 	$(SRC)/supps.c \

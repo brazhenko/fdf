@@ -14,5 +14,5 @@ include_directories(./inc/)
 #set_target_properties(myLogicalExtLib PROPERTIES IMPORTED_LOCATION "/Users/lreznak-/Documents/ls/libft.a")
 
 
-add_executable(fdf ${FDF_SRC} )
+add_executable(fdf ${FDF_SRC} src/auto_coloring.c)
 target_link_libraries(fdf "/Users/lreznak-/Documents/ls/libft.a")

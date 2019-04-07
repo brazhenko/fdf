@@ -6,7 +6,7 @@
 /*   By: lreznak- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 23:40:02 by lreznak-          #+#    #+#             */
-/*   Updated: 2019/04/07 04:41:53 by lreznak-         ###   ########.fr       */
+/*   Updated: 2019/04/07 05:39:21 by lreznak-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int					file_exit(int code)
 	return (0);
 }
 
-int		fdf_exit(void *data)
+int					fdf_exit(void *data)
 {
 	ft_putstr_fd(CL, 1);
 	init_window(0);
