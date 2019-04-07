@@ -6,7 +6,7 @@
 /*   By: wclayton <wclayton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 21:26:36 by lreznak-          #+#    #+#             */
-/*   Updated: 2019/04/07 04:35:43 by lreznak-         ###   ########.fr       */
+/*   Updated: 2019/04/07 09:58:26 by wclayton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@
 
 # define CL (tgetstr("cl", NULL))
 
-
 typedef struct	s_dot
 {
 	double 	x;
@@ -47,6 +46,32 @@ typedef struct	s_dot
 	unsigned char g;
 	unsigned  char b;
 }				t_dot;
+
+typedef struct	s_pot
+{
+	double 	r;
+	double 	g;
+	double 	b;
+}				t_pot;
+
+typedef struct	s_pxl
+{
+	double	dx;
+	double	dy;
+	double	grad;
+	double	xend;
+	double	yend;
+	double	xgap;
+	double	xpxl1;
+	double	ypxl1;
+	double	xpxl2;
+	double	ypxl2;
+	int		steep;
+	int		i;
+	double	intery;
+	int		flag;
+	t_pot	plc;
+}				t_pxl;
 
 typedef struct 	s_dots
 {
@@ -69,6 +94,12 @@ typedef struct		s_mouse
 	int				x;
 	int				y;
 }					t_mouse;
+
+typedef struct		s_xy
+{
+	double			x;
+	double			y;
+}					t_xy;
 
 typedef struct		s_keyboard
 {
@@ -104,6 +135,19 @@ void			remove_basis(t_dots *map);
 t_dot			anchor(t_dots *map);
 void			map_scale(t_dots *map, int mode);
 void			tty_print(char *type, float data, char *str);
+void			plot(t_xy xy, char *data, double bs, t_pot rgb);
+void			unplot(char *data);
+void			swap(double *a, double *b);
+void			iswap(unsigned char *a, unsigned char *b);
+double			ipart(double x);
+double			round(double x);
+double			fpart(double x);
+double			rfpart(double x);
+int		drawmap(t_fdf *fdf);
+int		key_press(int keycode, t_fdf *fdf);
+int		key_release(int keycode, t_fdf *fdf);
+int		mouse_press(int button, int x, int y, t_fdf *fdf);
+int		close1(t_fdf *fdf);
 
 
 
