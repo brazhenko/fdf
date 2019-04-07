@@ -153,8 +153,9 @@ int		close1(t_fdf *fdf);
 
 
 int				fdf_exit(void *data);
+int				file_exit(int code);
 
-int		tupa_chill(t_fdf *fdf);
+int				tupa_chill(t_fdf *fdf);
 
 
 #endif

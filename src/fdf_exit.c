@@ -6,11 +6,31 @@
 /*   By: lreznak- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 23:40:02 by lreznak-          #+#    #+#             */
-/*   Updated: 2019/04/07 04:41:47 by lreznak-         ###   ########.fr       */
+/*   Updated: 2019/04/07 04:41:53 by lreznak-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+int					file_exit(int code)
+{
+	if (code == DIR_ERROR)
+	{
+		ft_putstr("Do not attach directory!\n");
+		exit(EXIT_FAILURE);
+	}
+	else if (code == FILE_ERROR)
+	{
+		ft_putstr("There is no such file!\n");
+		exit(EXIT_FAILURE);
+	}
+	else if (code == ERROR_BIG_FILE)
+	{
+		ft_putstr("File is too big!!\n");
+		exit(EXIT_FAILURE);
+	}
+	return (0);
+}
 
 int		fdf_exit(void *data)
 {
