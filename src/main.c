@@ -5,7 +5,7 @@
 
 //void swap(t_point p1)
 
-void	move_basis(t_dots *map, t_dot anchor)
+void	move_basis(t_dots *map)
 {
 	int i;
 	int j;
@@ -16,14 +16,14 @@ void	move_basis(t_dots *map, t_dot anchor)
 		j = -1;
 		while (++j < map->cols)
 		{
-			map->dots[i][j].x -= anchor.x;
-			map->dots[i][j].y -= anchor.y;
-			map->dots[i][j].z -= anchor.z;
+			map->dots[i][j].x -= map->anc.x;
+			map->dots[i][j].y -= map->anc.y;
+			map->dots[i][j].z -= map->anc.z;
 		}
 	}
 }
 
-void	remove_basis(t_dots *map, t_dot anchor)
+void	remove_basis(t_dots *map)
 {
 	int i;
 	int j;
@@ -34,9 +34,9 @@ void	remove_basis(t_dots *map, t_dot anchor)
 		j = -1;
 		while (++j < map->cols)
 		{
-			map->dots[i][j].x += anchor.x;
-			map->dots[i][j].y += anchor.y;
-			map->dots[i][j].z += anchor.z;
+			map->dots[i][j].x += map->anc.x;
+			map->dots[i][j].y += map->anc.y;
+			map->dots[i][j].z += map->anc.z;
 		}
 	}
 }
@@ -96,8 +96,6 @@ double rfpart(double x)
 {
 	return(1 - fpart(x));
 }
-
-
 
 void wu(char *data, t_dot p1, t_dot p2)
 {
@@ -180,7 +178,6 @@ void wu(char *data, t_dot p1, t_dot p2)
 			intery += grad;
 			i++;
 		}
-
 	}
 	else
 	{
@@ -220,14 +217,8 @@ int key_press(int keycode, t_fdf *fdf)
 	fdf->keyboard->pressed[keycode] = 1;
 	int i = -1;
 	int j = -1;
-	static int flag = 0;
-
-	if (flag == 1)
-	{
-		map_twister_x(fdf->map, 1);
-		drawmap(fdf);
-	}
-	else if (keycode == 3)
+	
+	if (keycode == 3)
 	{
 		mlx_loop_hook(fdf->mlx_ptr, tupa_chill, fdf);
 		system("while :; do afplay music/bag-raiders-shooting-stars-official-video.mp3; done &");
@@ -236,32 +227,32 @@ int key_press(int keycode, t_fdf *fdf)
 	}
 	else if (keycode == 2)
 	{
-		map_twister_y(fdf->map, 1);
+		map_twister_y(fdf->map, 1, MINIMUM_RADIAN);
 		drawmap(fdf);
 	}
 	else if (keycode == 13)
 	{
-		map_twister_x(fdf->map, 1);
+		map_twister_x(fdf->map, 1, MINIMUM_RADIAN);
 		drawmap(fdf);
 	}
 	else if (keycode == 14)
 	{
-		map_twister_z(fdf->map, 1);
+		map_twister_z(fdf->map, 1, MINIMUM_RADIAN);
 		drawmap(fdf);
 	}
 	else if (keycode == 0)
 	{
-		map_twister_y(fdf->map, 0);
+		map_twister_y(fdf->map, 0, MINIMUM_RADIAN);
 		drawmap(fdf);
 	}
 	else if (keycode == 1)
 	{
-		map_twister_x(fdf->map, 0);
+		map_twister_x(fdf->map, 0, MINIMUM_RADIAN);
 		drawmap(fdf);
 	}
 	else if (keycode == 12)
 	{
-		map_twister_z(fdf->map, 0);
+		map_twister_z(fdf->map, 0, MINIMUM_RADIAN);
 		drawmap(fdf);
 	}
 	return(0);
@@ -327,22 +318,14 @@ int mouse_move(int x, int y, t_fdf *fdf)
 				fdf->map->dots[i][j].y += (y - fdf->mouse->y);
 			}
 		}
+		fdf->map->anc.x += (x - fdf->mouse->x);
+		fdf->map->anc.y += (y - fdf->mouse->y);
+		drawmap(fdf);
 	}
 	fdf->mouse->x = x;
 	fdf->mouse->y = y;
-	drawmap(fdf);
 	//printf("mm x %d y %d\n", x, y);
 	return (0);
-}
-
-t_dot	anchor(t_dots *map)
-{
-	t_dot anc;
-
-	anc.x = (map->dots[map->rows - 1][0].x + map->dots[0][map->cols - 1].x) / 2;
-	anc.y = (map->dots[map->rows - 1][0].y + map->dots[0][map->cols - 1].y) / 2;
-	anc.z = map->dots[map->rows / 2][map->cols / 2].z / 2;
-	return (anc);
 }
 
 int main(int ac, char *av[])
