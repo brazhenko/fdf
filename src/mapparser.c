@@ -6,7 +6,7 @@
 /*   By: wclayton <wclayton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 01:17:22 by lreznak-          #+#    #+#             */
-/*   Updated: 2019/04/07 04:35:43 by lreznak-         ###   ########.fr       */
+/*   Updated: 2019/04/07 04:35:51 by lreznak-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,47 +158,7 @@ t_dots			*map_parser(const char *path)
 			map->dots[l][j].z *= 10;
 		}
 	}
-//	for (int l = 0; l < i; ++l)
-//	{
-//		for (int j = 0; j < max_len; ++j)
-//		{
-//			printf("%f ", map->dots[l][j].z);
-//		}
-//		printf("\n");
-//	}
-//	printf("\n");
-
-//	for (int l = 0; l < i; ++l)
-//	{
-//		for (int j = 0; j < max_len; ++j)
-//		{
-//			printf("%f ", map->dots[l][j].x);
-//		}
-//		printf("\n");
-//	}
-//	printf("\n");
-//
-//	for (int l = 0; l < i; ++l)
-//	{
-//		for (int j = 0; j < max_len; ++j)
-//		{
-//			printf("%f ", map->dots[l][j].y);
-//		}
-//		printf("\n");
-//	}
 	map->cols = max_len;
 	map->rows = i;
-//	printf("%d\n", map->rows);
-//	printf("%d\n", map->cols);
-//	printf("%d----%d\n", max_height, min_height);
-//	for (int l = 0; l < i; ++l)
-//	{
-//		for (int j = 0; j < max_len; ++j)
-//		{
-//			printf("%d ", map->dots[l][j].r);
-//		}
-//		printf("\n");
-//	}
-	// tty_print("angle_x", 2.4, NULL);
 	return (map);
 }

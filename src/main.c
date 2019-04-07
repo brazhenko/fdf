@@ -1,9 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lreznak- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/16 04:26:06 by lreznak-          #+#    #+#             */
+/*   Updated: 2019/04/07 04:57:02 by lreznak-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
-
-
-
-
-//void swap(t_point p1)
 
 void	move_basis(t_dots *map)
 {
@@ -221,7 +228,8 @@ int key_press(int keycode, t_fdf *fdf)
 	if (keycode == 3)
 	{
 		mlx_loop_hook(fdf->mlx_ptr, tupa_chill, fdf);
-		system("while :; do afplay music/bag-raiders-shooting-stars-official-video.mp3; done &");
+		system("while :; do afplay music/bag-raiders-shooting-"
+		 "stars-official-video.mp3; done &");
 		sleep(23);
 		fdf->is_chill = 1;
 	}
@@ -300,7 +308,6 @@ int mouse_press(int button, int x, int y, t_fdf *fdf)
 int mouse_release(int button, int x, int y, t_fdf *fdf)
 {
 	fdf->mouse->pressed = 0;
-	//printf("mr b %d x %d y %d\n", button, x, y);
 	return (0);
 }
 
@@ -324,23 +331,24 @@ int mouse_move(int x, int y, t_fdf *fdf)
 	}
 	fdf->mouse->x = x;
 	fdf->mouse->y = y;
-	//printf("mm x %d y %d\n", x, y);
 	return (0);
 }
 
 int main(int ac, char *av[])
 {
-	signal(SIGINT, fdf_exit);
-	int i = -1, j = -1;
-	t_fdf	*fdf;
+	int			i;
+	int			j;
+	t_fdf		*fdf;
 
+	i = -1;
+	j = -1;
+	signal(SIGINT, fdf_exit);
 	if (!(fdf = (t_fdf*)malloc(sizeof(t_fdf))))
 		exit(0);
 	fdf->mouse = (t_mouse*)malloc(sizeof(t_mouse));
 	fdf->mouse->pressed = -1;
 	fdf->mouse->x = -1;
 	fdf->mouse->y = -1;
-
 	if (!(fdf->keyboard = (t_keyboard*)malloc(sizeof(t_keyboard))))
 		exit(0);
 	i = -1;
@@ -351,31 +359,18 @@ int main(int ac, char *av[])
 		fdf->map = map_parser(av[1]);
 	else
 		file_exit(FILE_ERROR);
-
-    fdf->mlx_ptr = mlx_init();
+	fdf->mlx_ptr = mlx_init();
 	fdf->win_ptr = mlx_new_window(fdf->mlx_ptr, WIDTH, HEIGHT, "123123");
 	fdf->img_ptr = mlx_new_image(fdf->mlx_ptr, WIDTH, HEIGHT);
-	fdf->img_data = mlx_get_data_addr(fdf->img_ptr, &(fdf->bpp), &(fdf->sl), &(fdf->endian));
-	while (++i < fdf->map->rows)
-	{
-		j = -1;
-		while (++j < fdf->map->cols)
-		{
-			if (j != fdf->map->cols - 1)
-				wu(fdf->img_data, fdf->map->dots[i][j], fdf->map->dots[i][j + 1]);
-			if (i != fdf->map->rows - 1)
-				wu(fdf->img_data, fdf->map->dots[i][j], fdf->map->dots[i + 1][j]);
-		}
-	}
-
+	fdf->img_data = mlx_get_data_addr(fdf->img_ptr, &(fdf->bpp),
+											&(fdf->sl), &(fdf->endian));
+	drawmap(fdf);
 	mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->img_ptr, 0, 0);
-	//some hooks
 	mlx_hook(fdf->win_ptr, 2, 0, key_press, fdf);
 	mlx_hook(fdf->win_ptr, 3, 0, key_release, fdf);
 	mlx_hook(fdf->win_ptr, 4, 0, mouse_press, fdf);
 	mlx_hook(fdf->win_ptr, 5, 0, mouse_release, fdf);
 	mlx_hook(fdf->win_ptr, 6, 0, mouse_move, fdf);
 	mlx_hook(fdf->win_ptr, 17, 0, close, fdf);
-
 	mlx_loop(fdf->mlx_ptr);
 }

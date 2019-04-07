@@ -6,7 +6,7 @@
 /*   By: lreznak- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 21:08:13 by lreznak-          #+#    #+#             */
-/*   Updated: 2019/04/04 20:19:17 by lreznak-         ###   ########.fr       */
+/*   Updated: 2019/04/07 04:41:22 by lreznak-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,11 @@
 
 void		tty_print(char *type, float data, char *str)
 {
-	struct winsize winsz;
-	char	buf[1024];
-
-	init_window(1);
-	set_keypress(1);
+	struct winsize		winsz;
+	char				buf[1024];
 
 	ioctl(0, TIOCGWINSZ, &winsz);
 	tgetent(buf, getenv("TERM"));
-
 	if (ft_strequ(type, "angle_x"))
 	{
 		ft_putstr_fd(tgoto(tgetstr("cm", NULL), 5, 2), STDIN_FILENO);
