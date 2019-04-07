@@ -6,7 +6,7 @@
 /*   By: wclayton <wclayton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 21:26:36 by lreznak-          #+#    #+#             */
-/*   Updated: 2019/04/07 10:30:27 by wclayton         ###   ########.fr       */
+/*   Updated: 2019/04/07 10:36:03 by lreznak-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,8 +141,9 @@ int					key_release(int keycode, t_fdf *fdf);
 int					mouse_press(int button, int x, int y, t_fdf *fdf);
 int					close1(t_fdf *fdf);
 void				map_chill_twister(t_dots *map, int mode);
-int					fdf_exit(void *data);
+void				fdf_exit(int data);
 int					file_exit(int code);
 int					tupa_chill(t_fdf *fdf);
+void				auto_coloring(t_dots *map);
 
 #endif

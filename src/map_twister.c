@@ -6,7 +6,7 @@
 /*   By: wclayton <wclayton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 05:46:33 by lreznak-          #+#    #+#             */
-/*   Updated: 2019/04/07 10:11:31 by lreznak-         ###   ########.fr       */
+/*   Updated: 2019/04/07 10:11:38 by lreznak-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ void			map_chill_twister(t_dots *map, int mode)
 {
 	int			i;
 	int			j;
-	double		tmp;
 
 	move_basis(map);
 	map_twister_y(map, 1, 0.05);

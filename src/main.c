@@ -6,7 +6,7 @@
 /*   By: wclayton <wclayton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 04:26:06 by lreznak-          #+#    #+#             */
-/*   Updated: 2019/04/07 10:03:19 by lreznak-         ###   ########.fr       */
+/*   Updated: 2019/04/07 10:41:13 by lreznak-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 int		mouse_release(int button, int x, int y, t_fdf *fdf)
 {
+	(void)button;
+	(void)x;
+	(void)y;
 	fdf->mouse->pressed = 0;
 	return (0);
 }

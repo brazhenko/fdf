@@ -6,7 +6,7 @@
 /*   By: wclayton <wclayton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 01:17:22 by lreznak-          #+#    #+#             */
-/*   Updated: 2019/04/07 09:56:04 by lreznak-         ###   ########.fr       */
+/*   Updated: 2019/04/07 10:35:15 by lreznak-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,11 @@ static void			init_map(t_dots *map, char ***ws_split)
 char				*map_reader(const char *path)
 {
 	int					fd;
-	char				m[3276222];
+	char				*m;
 	struct stat			f;
 
+	if (!(m = (char *)malloc(100000000)))
+		exit(0);
 	if ((fd = open(path, O_RDONLY)) > 0)
 	{
 		stat(path, &f);

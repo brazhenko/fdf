@@ -6,7 +6,7 @@
 /*   By: wclayton <wclayton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 04:26:06 by lreznak-          #+#    #+#             */
-/*   Updated: 2019/04/07 10:16:04 by lreznak-         ###   ########.fr       */
+/*   Updated: 2019/04/07 10:42:48 by lreznak-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	wu2(char *data, t_dot *p1, t_dot *p2, t_pxl *a)
 	a->ypxl2 = ipart(a->yend);
 }
 
-void	wu1(char *data, t_dot *p1, t_dot *p2, t_pxl *a)
+void	wu1(t_dot *p1, t_dot *p2, t_pxl *a)
 {
 	a->flag = 0;
 	a->steep = (fabs(p2->y - p1->y) > fabs(p2->x - p1->x)) ? 1 : 0;
@@ -110,7 +110,7 @@ void	wu(char *data, t_dot p1, t_dot p2)
 {
 	t_pxl	a;
 
-	wu1(data, &p1, &p2, &a);
+	wu1(&p1, &p2, &a);
 	wu2(data, &p1, &p2, &a);
 	if (a.steep)
 	{
