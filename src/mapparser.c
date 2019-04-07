@@ -6,7 +6,7 @@
 /*   By: wclayton <wclayton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 01:17:22 by lreznak-          #+#    #+#             */
-/*   Updated: 2019/04/07 09:12:46 by lreznak-         ###   ########.fr       */
+/*   Updated: 2019/04/07 09:56:04 by lreznak-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,47 +23,6 @@ static int			ptrlen(char **ptr)
 		i++;
 	}
 	return (i);
-}
-
-static int			ptrptrlen(char **ptr)
-{
-	int		i;
-
-	i = 0;
-	while (ptr[i])
-	{
-		i++;
-	}
-	return (i);
-}
-
-float				auto_color_sigmoid(float arg)
-{
-	return (1 / (1 + exp(-10 * (arg - 0.5))));
-}
-
-static void			auto_coloring(t_dots *map)
-{
-	int		i;
-	int		j;
-
-	i = -1;
-	while (++i < map->rows)
-	{
-		j = -1;
-		while (++j < map->cols)
-		{
-			map->dots[i][j].r = map->dots[i][j].color ? map->dots[i][j].r :
-			(unsigned char)(auto_color_sigmoid((float)
-			(map->dots[i][j].z - map->minh) /
-			(float)(map->maxh - map->minh)) * 0x4c);
-			map->dots[i][j].g = map->dots[i][j].color ? map->dots[i][j].g :
-			(unsigned char)((-auto_color_sigmoid((float)
-			(map->dots[i][j].z - map->minh) /
-			(float)(map->maxh - map->minh)) + 1) * 0x4c);
-			map->dots[i][j].z *= 10;
-		}
-	}
 }
 
 static void			init_map(t_dots *map, char ***ws_split)
@@ -116,7 +75,7 @@ char				*map_reader(const char *path)
 	return (m);
 }
 
-void				anching(t_dots *map)
+static void			anching(t_dots *map)
 {
 	map->angle.x = 0;
 	map->angle.y = 0;
